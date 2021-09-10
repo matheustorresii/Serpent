@@ -1,0 +1,22 @@
+//
+//  File.swift
+//  
+//
+//  Created by Matheus Torres on 05/09/21.
+//
+
+import Foundation
+
+struct Utils {
+    static func damage(atk: Int, def: Int, basePower: Int = 0) -> Int {
+        let random = Int.random(in: 1...10)
+        let damage = (atk * (random + basePower) - def) / 20
+        print("atk: \(atk) - def: \(def) - rdm: \(random) - dmg: \(damage)")
+        if damage < 1 { return 1 }
+        return random == 10 ? damage * 2 : damage
+    }
+    
+    enum Strings: String {
+        case error = "[Error 😵]"
+    }
+}
