@@ -20,10 +20,6 @@ extension Message {
         }
     }
     
-    func area() {
-        
-    }
-    
     fileprivate func bossAttack(targetId: String) {
         doDamage(striker: BOSS, targetName: targetId)
     }

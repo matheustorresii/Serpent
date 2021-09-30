@@ -24,6 +24,7 @@ struct Entity {
     var atkNerfed: Bool
     var defNerfed: Bool
     var protected: Bool
+    var disabled: Bool
     
     init(name: String,
          hp: Int,
@@ -49,6 +50,7 @@ struct Entity {
         self.atkNerfed = false
         self.defNerfed = false
         self.protected = false
+        self.disabled = false
     }
     
     mutating func currentHp(_ value: Int) {
@@ -73,5 +75,9 @@ struct Entity {
     
     mutating func protected(_ state: Bool) {
         protected = state
+    }
+    
+    mutating func disabled(_ state: Bool) {
+        disabled = state
     }
 }

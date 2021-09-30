@@ -7,11 +7,13 @@
 
 import Foundation
 
+// MARK: - LEVEL 27 (135)
+
 var CHARACTERS: [Entity] = [
     .init(name: "Ayie",
           hp: 23,
           atk: 23,
-          exa: 33,
+          exa: 43,
           def: 20,
           spd: 26,
           abilities: [
@@ -29,11 +31,11 @@ var CHARACTERS: [Entity] = [
                   attributes: [.narrative]),
           ]),
     .init(name: "Froycon",
-          hp: 20,
-          atk: 23,
-          exa: 23,
-          def: 9,
-          spd: 20,
+          hp: 30,
+          atk: 26,
+          exa: 26,
+          def: 30,
+          spd: 23,
           abilities: [
             .init(name: "Aura Negra",
                   power: 0,
@@ -49,17 +51,17 @@ var CHARACTERS: [Entity] = [
                   attributes: [.buffAtk, .buffDef]),
           ]),
     .init(name: "Maha",
-          hp: 30,
-          atk: 40,
+          hp: 40,
+          atk: 50,
           exa: 5,
-          def: 14,
-          spd: 6,
+          def: 30,
+          spd: 10,
           abilities: [
             .init(name: "Katana do Deus do Fogo",
                   power: 1,
                   pp: 5,
                   attributes: [.combo]),
-            .init(name: "Arte da Família",
+            .init(name: "Arte Família",
                   power: 0,
                   pp: 5,
                   attributes: [.critical, .physical]),
@@ -69,11 +71,11 @@ var CHARACTERS: [Entity] = [
                   attributes: [.buffAtk]),
           ]),
     .init(name: "Oleg",
-          hp: 23,
+          hp: 25,
           atk: 0,
-          exa: 27,
+          exa: 30,
           def: 20,
-          spd: 55,
+          spd: 60,
           abilities: [
             .init(name: "Já vou lá",
                   power: 0,
@@ -84,43 +86,24 @@ var CHARACTERS: [Entity] = [
                   pp: 5,
                   attributes: [.narrative]),
             .init(name: "Flechão",
-                  power: 20,
+                  power: 25,
                   pp: 1,
-                  attributes: []),
+                  attributes: [.critical]),
           ]),
-    .init(name: "Seilapoha",
-          hp: 1000,
-          atk: 50,
-          exa: 50,
-          def: 50,
+    .init(name: "Aurora",
+          hp: 420,
+          atk: 130,
+          exa: 100,
+          def: 70,
           spd: 50,
           abilities: [
-            .init(name: "Faz tudo",
+            .init(name: "Perfeitinha",
                   power: 0,
-                  pp: 5,
-                  attributes: [.buffDef, .buffAtk, .nerfAtk, .nerfDef]),
-            .init(name: "Muito dano",
-                  power: 15,
-                  pp: 5,
-                  attributes: [.critical, .combo]),
-            .init(name: "Faz nada",
-                  power: 0,
-                  pp: 0,
-                  attributes: [])
+                  pp: 3,
+                  attributes: [.nerfDef, .nerfAtk])
           ])
 ]
 
 var ENEMIES = [Entity]()
 
-var BOSS = Entity(name: "Hideo",
-                  hp: 600,
-                  atk: 30,
-                  exa: 80,
-                  def: 80,
-                  spd: 80,
-                  abilities: [
-                    .init(name: "DANO_EM_ÁREA",
-                          power: 5,
-                          pp: 5,
-                          attributes: [.area])
-                  ])
+var BOSS = CURRENT_BOSS

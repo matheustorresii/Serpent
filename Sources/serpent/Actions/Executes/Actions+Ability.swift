@@ -28,6 +28,13 @@ extension Message {
         entity.abilities[abilityInt-1].pp(abilityUsed.pp - 1)
         var target = getEntity(with: targetId)
         
+        // MARK: - CHECKS DISABLED
+        
+        if entity.disabled {
+            say("Você não pode usar suas habilidades enquanto está desabilitado!", color: .yellow)
+            return
+        }
+        
         // MARK: - AREA
         
         if abilityUsed.attributes.contains(.area) {
@@ -101,6 +108,15 @@ extension Message {
             entity.protected(true)
             say("\(entity.name) usou \(abilityUsed.name) e está imune ao próximo golpe!", color: .blue)
         }
+        
+        // MARK: - DISABLED
+        
+        if abilityUsed.attributes.contains(.disable) {
+            target.disabled(true)
+            say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está desabilitado e não poderá usar suas habilidades!", color: .orange)
+        }
+        
+        // MARK: - DAMAGE
         
         if abilityUsed.attributes.contains(.combo)
             || abilityUsed.attributes.contains(.critical)

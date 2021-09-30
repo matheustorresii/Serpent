@@ -30,13 +30,13 @@ extension Message {
     fileprivate func check(entity: Entity, shouldShowPP: Bool = false) {
         say("\(entity.name) está com \(entity.currentHp) de HP", color: .yellow)
         if shouldShowPP {
-            var strings = ""
-            for ability in entity.abilities {
-                strings += "- \(ability.name) possui \(ability.pp) de pp\n"
-            }
-            say(strings, color: .yellow)
+            let message = entity.abilities.map {
+                return "- \($0.name) possui \($0.pp) de pp -"
+            }.joined(separator: "\n")
+            say(message, color: .yellow)
         }
-        if entity.protected { say("\(entity.name) está protegido", color: .blue) }
+        if entity.protected { say("\(entity.name) está protegido!", color: .blue) }
+        if entity.disabled  { say("\(entity.name) está desabilitado e não pode usar suas habilidades!", color: .orange) }
         if entity.atkBuffed { say("O ataque de \(entity.name) está aumentado!", color: .blue) }
         if entity.defBuffed { say("A defesa de \(entity.name) está aumentada!", color: .blue) }
         if entity.atkNerfed { say("O ataque de \(entity.name) está reduzido!", color: .orange) }

@@ -34,4 +34,5 @@ enum Attributes {
     
     // BOSS
     case area
+    case disable
 }
