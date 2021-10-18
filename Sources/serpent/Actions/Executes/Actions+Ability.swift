@@ -69,6 +69,14 @@ extension Message {
             say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou!", color: .green)
         }
         
+        // MARK: - DOUBLE BUFF ATK
+        
+        if abilityUsed.attributes.contains(.doubleBuffAtk) {
+            entity.atkStatus(.improve)
+            entity.atkStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou muito!", color: .green)
+        }
+        
         // MARK: - BUFF DEF
         
         if abilityUsed.attributes.contains(.buffDef) {
@@ -76,18 +84,42 @@ extension Message {
             say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou!", color: .green)
         }
         
+        // MARK: - DOUBLE BUFF DEF
+        
+        if abilityUsed.attributes.contains(.doubleBuffDef) {
+            entity.defStatus(.improve)
+            entity.defStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou muito!", color: .green)
+        }
+        
         // MARK: - NERF ATK
         
         if abilityUsed.attributes.contains(.nerfAtk) {
-            entity.atkStatus(.reduce)
+            target.atkStatus(.reduce)
             say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou!", color: .orange)
+        }
+        
+        // MARK: - DOUBLE NERF ATK
+        
+        if abilityUsed.attributes.contains(.doubleNerfAtk) {
+            target.atkStatus(.reduce)
+            target.atkStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou muito!", color: .orange)
         }
         
         // MARK: - NERF DEF
         
         if abilityUsed.attributes.contains(.nerfDef) {
-            entity.defStatus(.reduce)
+            target.defStatus(.reduce)
             say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou!", color: .orange)
+        }
+        
+        // MARK: - DOUBLE NERF DEF
+        
+        if abilityUsed.attributes.contains(.doubleNerfDef) {
+            target.defStatus(.reduce)
+            target.defStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou muito!", color: .orange)
         }
         
         // MARK: - PROTECTED

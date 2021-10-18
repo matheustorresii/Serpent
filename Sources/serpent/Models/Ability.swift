@@ -26,13 +26,17 @@ enum Attributes {
     case nerfDef
     case protect
     
+    case doubleBuffAtk
+    case doubleBuffDef
+    case doubleNerfAtk
+    case doubleNerfDef
+    
     // DAMAGES
     case physical
     case combo
     case critical
     case heal
     case drain
-    case narrative
     
     // BOSS
     case area
@@ -40,9 +44,9 @@ enum Attributes {
     
     var shouldDoDamage: Bool {
         switch self {
-        case .buffAtk, .buffDef, .nerfAtk, .nerfDef, .protect, .heal:
+        case .buffAtk, .buffDef, .nerfAtk, .nerfDef, .protect, .heal, .doubleBuffAtk, .doubleBuffDef, .doubleNerfAtk, .doubleNerfDef:
             return false
-        case .physical, .combo, .critical, .drain, .narrative, .area, .disable:
+        case .physical, .combo, .critical, .drain, .area, .disable:
             return true
         }
     }

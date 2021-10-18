@@ -26,7 +26,7 @@ fileprivate let OKOT = Entity(name: "Okot (Drayden)",
                               def: 100,
                               spd: 18,
                               abilities: [
-                                .init(name: "Drenagem", power: 0, pp: 5, attributes: [.narrative]),
+                                .init(name: "Drenagem", power: 0, pp: 5, attributes: [.drain]),
                                 .init(name: "Chuva de pólen", power: 0, pp: 5, attributes: [.nerfAtk, .nerfDef]),
                                 .init(name: "Petrificar", power: 1, pp: 5, attributes: [.disable])
                               ])

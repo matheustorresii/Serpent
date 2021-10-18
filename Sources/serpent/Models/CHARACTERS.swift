@@ -97,9 +97,9 @@ var CHARACTERS: [Entity] = [
           def: 1000,
           spd: 50,
           abilities: [
-            .init(name: "Thurito Power", power: 10, pp: 5, attributes: [.combo]),
-            .init(name: "CURA", power: 5, pp: 5, attributes: [.heal]),
-            .init(name: "DRENAR", power: 5, pp: 5, attributes: [.drain])
+            .init(name: "BUFFA MUITO ATK", power: 0, pp: 5, attributes: [.doubleBuffAtk]),
+            .init(name: "NERFA MUITO DEF", power: 0, pp: 5, attributes: [.doubleNerfDef]),
+            .init(name: "BUFFA MUITO TUDO", power: 0, pp: 5, attributes: [.doubleBuffAtk, .doubleBuffDef])
           ])
 ]
 
