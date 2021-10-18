@@ -37,9 +37,11 @@ extension Message {
         }
         if entity.protected { say("\(entity.name) está protegido!", color: .blue) }
         if entity.disabled  { say("\(entity.name) está desabilitado e não pode usar suas habilidades!", color: .orange) }
-        if entity.atkBuffed { say("O ataque de \(entity.name) está aumentado!", color: .blue) }
-        if entity.defBuffed { say("A defesa de \(entity.name) está aumentada!", color: .blue) }
-        if entity.atkNerfed { say("O ataque de \(entity.name) está reduzido!", color: .orange) }
-        if entity.defNerfed { say("A defesa de \(entity.name) está reduzida!", color: .orange) }
+        if let (description, direction) = entity.atkStatus.description {
+            say("O ataque de \(entity.name) está \(description)!", color: direction == .improve ? .blue : .orange)
+        }
+        if let (description, direction) = entity.defStatus.description {
+            say("A defesa de \(entity.name) está \(description)!", color: direction == .improve ? .blue : .orange)
+        }
     }
 }

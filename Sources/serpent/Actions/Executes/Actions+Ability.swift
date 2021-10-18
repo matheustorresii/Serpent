@@ -44,12 +44,12 @@ extension Message {
         if abilityUsed.attributes.contains(.area) {
             say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
             for currentCharacter in CHARACTERS {
-                doDamage(striker: BOSS,
-                         targetName: currentCharacter.name.lowercased(),
-                         basePower: abilityUsed.power,
-                         isExa: !abilityUsed.attributes.contains(.physical),
-                         isCrit: abilityUsed.attributes.contains(.critical),
-                         isCombo: abilityUsed.attributes.contains(.combo))
+                _ = doDamage(striker: BOSS,
+                             targetName: currentCharacter.name.lowercased(),
+                             basePower: abilityUsed.power,
+                             isExa: !abilityUsed.attributes.contains(.physical),
+                             isCrit: abilityUsed.attributes.contains(.critical),
+                             isCombo: abilityUsed.attributes.contains(.combo))
             }
             return
         }
@@ -65,53 +65,29 @@ extension Message {
         // MARK: - BUFF ATK
         
         if abilityUsed.attributes.contains(.buffAtk) {
-            if entity.atkNerfed {
-                entity.atkBuffed(false)
-                entity.atkNerfed(false)
-                say("\(entity.name) usou \(abilityUsed.name) e seu ataque voltou ao normal!", color: .yellow)
-            } else {
-                entity.atkBuffed(true)
-                say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou!", color: .green)
-            }
+            entity.atkStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou!", color: .green)
         }
         
         // MARK: - BUFF DEF
         
         if abilityUsed.attributes.contains(.buffDef) {
-            if entity.defNerfed {
-                entity.defBuffed(false)
-                entity.defNerfed(false)
-                say("\(entity.name) usou \(abilityUsed.name) e sua defesa voltou ao normal!", color: .yellow)
-            } else {
-                entity.defBuffed(true)
-                say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou!", color: .green)
-            }
+            entity.defStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou!", color: .green)
         }
         
         // MARK: - NERF ATK
         
         if abilityUsed.attributes.contains(.nerfAtk) {
-            if target.atkBuffed {
-                target.atkBuffed(false)
-                target.atkNerfed(false)
-                say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) voltou ao normal!", color: .yellow)
-            } else {
-                target.atkNerfed(true)
-                say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou!", color: .orange)
-            }
+            entity.atkStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou!", color: .orange)
         }
         
         // MARK: - NERF DEF
         
         if abilityUsed.attributes.contains(.nerfDef) {
-            if target.defBuffed {
-                target.defBuffed(false)
-                target.defNerfed(false)
-                say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) voltou ao normal!", color: .yellow)
-            } else {
-                target.defNerfed(true)
-                say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou!", color: .orange)
-            }
+            entity.defStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou!", color: .orange)
         }
         
         // MARK: - PROTECTED

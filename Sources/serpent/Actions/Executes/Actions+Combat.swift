@@ -52,21 +52,10 @@ extension Message {
     }
     
     fileprivate func getAtk(for entity: Entity, isExa: Bool = false) -> Int {
-        if isExa {
-            return entity.atkBuffed ? boost(entity.exa) : entity.atkNerfed ? decrease(entity.exa) : entity.exa
-        }
-        return entity.atkBuffed ? boost(entity.atk) : entity.atkNerfed ? decrease(entity.atk) : entity.atk
+        return Int(Double(isExa ? entity.exa : entity.atk) * entity.atkStatus.multiplier)
     }
     
     fileprivate func getDef(for entity: Entity) -> Int {
-        return entity.defBuffed ? boost(entity.def) : entity.defNerfed ? decrease(entity.def) : entity.def
-    }
-    
-    fileprivate func boost(_ value: Int) -> Int {
-        return Int(Double(value) * 1.5)
-    }
-    
-    fileprivate func decrease(_ value: Int) -> Int {
-        return Int(Double(value) * 0.5)
+        return Int(Double(entity.def) * entity.defStatus.multiplier)
     }
 }

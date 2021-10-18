@@ -19,6 +19,16 @@ enum Status {
         case improve
     }
     
+    var multiplier: Double {
+        switch self {
+        case .doubleNerfed: return 0.50
+        case .nerfed: return 0.75
+        case .normal: return 1.00
+        case .buffed: return 1.25
+        case .doubleBuffed: return 1.50
+        }
+    }
+    
     var next: Status {
         switch self {
         case .doubleNerfed: return .nerfed
@@ -38,6 +48,16 @@ enum Status {
         case .doubleBuffed: return .buffed
         }
     }
+    
+    var description: (String, Direction)? {
+        switch self {
+        case .doubleNerfed: return ("muito abaixo do normal", .reduce)
+        case .nerfed:       return ("abaixo do normal", .reduce)
+        case .normal:       return nil
+        case .buffed:       return ("acima do normal", .improve)
+        case .doubleBuffed: return ("muito acima do normal", .improve)
+        }
+    }
 }
 
 struct Entity {
@@ -51,11 +71,6 @@ struct Entity {
     let spd: Int
     
     var abilities: [Ability]
-    
-    var atkBuffed: Bool
-    var defBuffed: Bool
-    var atkNerfed: Bool
-    var defNerfed: Bool
     
     var atkStatus: Status
     var defStatus: Status
@@ -81,35 +96,21 @@ struct Entity {
         
         self.abilities = abilities
         
-        self.atkBuffed = false
-        self.defBuffed = false
-        self.atkNerfed = false
-        self.defNerfed = false
-        
         self.atkStatus = .normal
         self.defStatus = .normal
         self.protected = false
         self.disabled = false
     }
     
+    mutating func reset() {
+        atkStatus = .normal
+        defStatus = .normal
+        protected = false
+        disabled = false
+    }
+    
     mutating func currentHp(_ value: Int) {
         currentHp = value
-    }
-    
-    mutating func atkBuffed(_ state: Bool) {
-        atkBuffed = state
-    }
-    
-    mutating func defBuffed(_ state: Bool) {
-        defBuffed = state
-    }
-    
-    mutating func atkNerfed(_ state: Bool) {
-        atkNerfed = state
-    }
-    
-    mutating func defNerfed(_ state: Bool) {
-        defNerfed = state
     }
     
     mutating func atkStatus(_ direction: Status.Direction) {
