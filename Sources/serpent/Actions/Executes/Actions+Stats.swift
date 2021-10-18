@@ -8,6 +8,16 @@
 import Sword
 
 extension Message {
+    
+    private enum Stat {
+        case buffAtk
+        case buffDef
+        case nerfAtk
+        case nerfDef
+        case protect
+        case disable
+    }
+    
     func buffAtk() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }

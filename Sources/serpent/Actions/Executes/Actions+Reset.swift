@@ -16,6 +16,7 @@ extension Message {
             entity.atkNerfed(false)
             entity.defNerfed(false)
             entity.protected(false)
+            entity.disabled(false)
             updateEntity(entity)
         }
         say("Todos os atributos dos jogadores voltaram ao normal!", color: .yellow)

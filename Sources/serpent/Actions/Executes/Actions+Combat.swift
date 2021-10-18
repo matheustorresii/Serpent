@@ -14,13 +14,13 @@ extension Message {
                   basePower: Int = 0,
                   isExa: Bool = false,
                   isCrit: Bool = false,
-                  isCombo: Bool = false) {
+                  isCombo: Bool = false) -> Int {
         var target = getEntity(with: targetName)
-        if target.protected {
+        guard !target.protected else {
             target.protected(false)
             say("\(target.name) estava protegido e não tomou dano!", color: .yellow)
             updateEntity(target)
-            return
+            return 0
         }
         
         let multiplier = isCrit ? 2 : 1
@@ -47,14 +47,15 @@ extension Message {
         }
         
         updateEntity(target)
+        
+        return fullDamage
     }
     
     fileprivate func getAtk(for entity: Entity, isExa: Bool = false) -> Int {
         if isExa {
             return entity.atkBuffed ? boost(entity.exa) : entity.atkNerfed ? decrease(entity.exa) : entity.exa
-        } else {
-            return entity.atkBuffed ? boost(entity.atk) : entity.atkNerfed ? decrease(entity.atk) : entity.atk
         }
+        return entity.atkBuffed ? boost(entity.atk) : entity.atkNerfed ? decrease(entity.atk) : entity.atk
     }
     
     fileprivate func getDef(for entity: Entity) -> Int {

@@ -25,6 +25,10 @@ extension Message {
             say("\(Utils.Strings.error.rawValue): Não foi possível achar essa habilidade", color: .red)
             return
         }
+        if abilityUsed.pp == 0 {
+            say("Acabaram suas cargas para esta habilidade!", color: .yellow)
+            return
+        }
         entity.abilities[abilityInt-1].pp(abilityUsed.pp - 1)
         var target = getEntity(with: targetId)
         
@@ -48,6 +52,14 @@ extension Message {
                          isCombo: abilityUsed.attributes.contains(.combo))
             }
             return
+        }
+        
+        // MARK: - HEAL
+        
+        if abilityUsed.attributes.contains(.heal) {
+            let randomValue = Int.random(in: 1...(target.hp/2))
+            print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
+            heal(entity: &target, with: randomValue + abilityUsed.power)
         }
         
         // MARK: - BUFF ATK
@@ -118,22 +130,24 @@ extension Message {
         
         // MARK: - DAMAGE
         
-        if abilityUsed.attributes.contains(.combo)
-            || abilityUsed.attributes.contains(.critical)
-            || abilityUsed.attributes.contains(.narrative)
-            || abilityUsed.attributes.contains(.physical)
-            || abilityUsed.power > 0 {
+        // UpdateEntities antes do damage pra chegar a dar o dano sem sobrescrever os buffs/nerfs
+        updateEntities(entity, target)
+        
+        if abilityUsed.attributes.contains(where: { $0.shouldDoDamage }) {
             say("\(entity.name) usou \(abilityUsed.name)", color: .yellow)
-            doDamage(striker: entity,
-                     targetName: "\(targetId)",
-                     basePower: abilityUsed.power,
-                     isExa: !abilityUsed.attributes.contains(.physical),
-                     isCrit: abilityUsed.attributes.contains(.critical),
-                     isCombo: abilityUsed.attributes.contains(.combo))
-        } else {
-            // MARK: - UPDATE ENTITIES
-            // Não sobrescrever o update do "doDamage()"
-            updateEntities(entity, target)
+            let damage = doDamage(striker: entity,
+                                  targetName: "\(targetId)",
+                                  basePower: abilityUsed.power,
+                                  isExa: !abilityUsed.attributes.contains(.physical),
+                                  isCrit: abilityUsed.attributes.contains(.critical),
+                                  isCombo: abilityUsed.attributes.contains(.combo))
+            
+            // MARK: - DRAIN
+            if abilityUsed.attributes.contains(.drain) {
+                say("\(entity.name) usou \(abilityUsed.name) para drenar \(target.name)!", color: .yellow)
+                heal(entity: &entity, with: damage/2)
+                updateEntity(entity)
+            }
         }
     }
 }

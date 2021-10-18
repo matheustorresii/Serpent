@@ -15,11 +15,14 @@ extension Message {
               let value = Int(lastValue) else { return }
         
         var entity = getEntity(with: "\(entityId)")
+        heal(entity: &entity, with: value)
+    }
+    
+    func heal(entity: inout Entity, with value: Int) {
         let newHp = getNewHp(for: entity, with: value)
         entity.currentHp(newHp)
-        say("\(entity.name) se curou e agora possui \(entity.currentHp) de HP", color: .green)
+        say("\(entity.name) foi curado e agora possui \(entity.currentHp) de HP", color: .green)
         updateEntity(entity)
-
     }
     
     fileprivate func getNewHp(for entity: Entity, with value: Int) -> Int {

@@ -7,6 +7,39 @@
 
 import Foundation
 
+enum Status {
+    case doubleNerfed
+    case nerfed
+    case normal
+    case buffed
+    case doubleBuffed
+    
+    enum Direction {
+        case reduce
+        case improve
+    }
+    
+    var next: Status {
+        switch self {
+        case .doubleNerfed: return .nerfed
+        case .nerfed:       return .normal
+        case .normal:       return .buffed
+        case .buffed:       return .doubleBuffed
+        case .doubleBuffed: return .doubleBuffed
+        }
+    }
+    
+    var previous: Status {
+        switch self {
+        case .doubleNerfed: return .doubleNerfed
+        case .nerfed:       return .doubleNerfed
+        case .normal:       return .nerfed
+        case .buffed:       return .normal
+        case .doubleBuffed: return .buffed
+        }
+    }
+}
+
 struct Entity {
     let name: String
     var currentHp: Int
@@ -23,6 +56,9 @@ struct Entity {
     var defBuffed: Bool
     var atkNerfed: Bool
     var defNerfed: Bool
+    
+    var atkStatus: Status
+    var defStatus: Status
     var protected: Bool
     var disabled: Bool
     
@@ -49,6 +85,9 @@ struct Entity {
         self.defBuffed = false
         self.atkNerfed = false
         self.defNerfed = false
+        
+        self.atkStatus = .normal
+        self.defStatus = .normal
         self.protected = false
         self.disabled = false
     }
@@ -71,6 +110,14 @@ struct Entity {
     
     mutating func defNerfed(_ state: Bool) {
         defNerfed = state
+    }
+    
+    mutating func atkStatus(_ direction: Status.Direction) {
+        atkStatus = direction == .improve ? atkStatus.next : atkStatus.previous
+    }
+    
+    mutating func defStatus(_ direction: Status.Direction) {
+        defStatus = direction == .improve ? defStatus.next : defStatus.previous
     }
     
     mutating func protected(_ state: Bool) {

@@ -19,6 +19,18 @@ fileprivate let ANUBIS = Entity(name: "Anúbis",
                                   .init(name: "Shadow Armor", power: 0, pp: 3, attributes: [.buffDef])
                                 ])
 
+fileprivate let OKOT = Entity(name: "Okot (Drayden)",
+                              hp: 550,
+                              atk: 20,
+                              exa: 25,
+                              def: 100,
+                              spd: 18,
+                              abilities: [
+                                .init(name: "Drenagem", power: 0, pp: 5, attributes: [.narrative]),
+                                .init(name: "Chuva de pólen", power: 0, pp: 5, attributes: [.nerfAtk, .nerfDef]),
+                                .init(name: "Petrificar", power: 1, pp: 5, attributes: [.disable])
+                              ])
+
 fileprivate let TEST_BOSS = Entity(name: "Boss",
                                    hp: 100,
                                    atk: 50,
@@ -40,4 +52,4 @@ fileprivate let TEST_BOSS = Entity(name: "Boss",
                                           attributes: [.physical])
                                    ])
 
-let CURRENT_BOSS = TEST_BOSS
+let CURRENT_BOSS = OKOT

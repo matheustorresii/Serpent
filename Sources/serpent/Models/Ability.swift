@@ -30,9 +30,20 @@ enum Attributes {
     case physical
     case combo
     case critical
+    case heal
+    case drain
     case narrative
     
     // BOSS
     case area
     case disable
+    
+    var shouldDoDamage: Bool {
+        switch self {
+        case .buffAtk, .buffDef, .nerfAtk, .nerfDef, .protect, .heal:
+            return false
+        case .physical, .combo, .critical, .drain, .narrative, .area, .disable:
+            return true
+        }
+    }
 }
