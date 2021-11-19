@@ -15,13 +15,13 @@ import Foundation
 // 748944007366705223 = DevDev
 // Players:
 // 337595162572095510 = Pedrin
+// 892539055953305630 = Pedrin 2
 // 419197752816173057 = Thiaguin
 // 204663989395783680 = Samuel
 // 243371249215078400 = Savio
 
 enum Character: String {
     case ayie = "243371249215078400"
-    case froycon = "337595162572095510"
     case maha = "419197752816173057"
     case oleg = "204663989395783680"
     
@@ -35,24 +35,21 @@ enum Character: String {
                                                   atk: 1,
                                                   exa: 1,
                                                   def: 1,
-                                                  spd: 1,
-                                                  abilities: [])
+                                                  spd: 1)
     }
     
     var index: Int {
         switch self {
             case .ayie:     return 0
-            case .froycon:  return 1
-            case .maha:     return 2
-            case .oleg:     return 3
-            default:        return 4
+            case .maha:     return 1
+            case .oleg:     return 2
+            default:        return 3
         }
     }
     
     static func entityWith(name: String) -> Entity {
-        switch name {
+        switch name.lowercased() {
             case "ayie":    return Character.ayie.entity
-            case "froycon": return Character.froycon.entity
             case "maha":    return Character.maha.entity
             case "oleg":    return Character.oleg.entity
             default:        return Character.master.entity
@@ -60,9 +57,8 @@ enum Character: String {
     }
     
     static func indexWith(name: String) -> Int {
-        switch name {
+        switch name.lowercased() {
             case "ayie":    return Character.ayie.index
-            case "froycon": return Character.froycon.index
             case "maha":    return Character.maha.index
             case "oleg":    return Character.oleg.index
             default:        return Character.master.index

@@ -31,6 +31,11 @@ enum Attributes {
     case doubleNerfAtk
     case doubleNerfDef
     
+    case tripleBuffAtk
+    case tripleBuffDef
+    case tripleNerfAtk
+    case tripleNerfDef
+    
     // DAMAGES
     case physical
     case combo
@@ -44,9 +49,27 @@ enum Attributes {
     
     var shouldDoDamage: Bool {
         switch self {
-        case .buffAtk, .buffDef, .nerfAtk, .nerfDef, .protect, .heal, .doubleBuffAtk, .doubleBuffDef, .doubleNerfAtk, .doubleNerfDef:
+        case .buffAtk,
+                .buffDef,
+                .nerfAtk,
+                .nerfDef,
+                .protect,
+                .heal,
+                .doubleBuffAtk,
+                .doubleBuffDef,
+                .doubleNerfAtk,
+                .doubleNerfDef,
+                .tripleBuffAtk,
+                .tripleBuffDef,
+                .tripleNerfAtk,
+                .tripleNerfDef:
             return false
-        case .physical, .combo, .critical, .drain, .area, .disable:
+        case .physical,
+                .combo,
+                .critical,
+                .drain,
+                .area,
+                .disable:
             return true
         }
     }

@@ -10,27 +10,29 @@ import Sword
 extension Message {
     func ability() {
         let values = content.split(separator: " ").dropFirst()
-        guard let targetId = values.first, let last = values.last, let lastInt = Int(last) else { return }
-        guard let character = Character(rawValue: author?.id.description ?? "") else {
-            say(Utils.Strings.error.rawValue, color: .red)
-            id()
-            return
-        }
-        doAbility(entityUsingAbility: character.entity, targetId: "\(targetId)", abilityInt: lastInt)
+        guard let targetId = values.first, let ability = values.last, let abilityIndex = Int(ability) else { return }
+        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
+        
+        doAbility(entityId: character.entity.name,
+                  targetId: "\(targetId)",
+                  abilityIndex: abilityIndex)
     }
     
-    func doAbility(entityUsingAbility: Entity, targetId: String, abilityInt: Int) {
-        var entity = entityUsingAbility
-        guard let abilityUsed = entity.abilities[exists: abilityInt-1] else {
+    func doAbility(entityId: String, targetId: String, abilityIndex: Int) {
+        var entity = getEntity(with: "\(entityId)")
+        var target = getEntity(with: "\(targetId)")
+        
+        guard let abilityUsed = entity.abilities[exists: abilityIndex-1] else {
             say("\(Utils.Strings.error.rawValue): Não foi possível achar essa habilidade", color: .red)
             return
         }
+        
         if abilityUsed.pp == 0 {
             say("Acabaram suas cargas para esta habilidade!", color: .yellow)
             return
         }
-        entity.abilities[abilityInt-1].pp(abilityUsed.pp - 1)
-        var target = getEntity(with: targetId)
+        
+        entity.abilities[abilityIndex-1].pp(abilityUsed.pp - 1)
         
         // MARK: - CHECKS DISABLED
         
@@ -45,7 +47,7 @@ extension Message {
             say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
             for currentCharacter in CHARACTERS {
                 _ = doDamage(striker: BOSS,
-                             targetName: currentCharacter.name.lowercased(),
+                             targetName: currentCharacter.name,
                              basePower: abilityUsed.power,
                              isExa: !abilityUsed.attributes.contains(.physical),
                              isCrit: abilityUsed.attributes.contains(.critical),
@@ -57,39 +59,61 @@ extension Message {
         // MARK: - HEAL
         
         if abilityUsed.attributes.contains(.heal) {
-            let randomValue = Int.random(in: 1...(target.hp/2))
-            print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
-            heal(entity: &target, with: randomValue + abilityUsed.power)
+            if target.currentHp <= 0 {
+                say("\(target.name) está derrotado, ele precisa ser revivido antes.", color: .red)
+            } else {
+                let randomValue = Int.random(in: 1...(target.hp/2))
+                print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
+                heal(entityId: targetId, with: randomValue + abilityUsed.power)
+            }
         }
         
         // MARK: - BUFF ATK
         
         if abilityUsed.attributes.contains(.buffAtk) {
-            entity.atkStatus(.improve)
-            say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou!", color: .green)
+            target.atkStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) aumentou!", color: .green)
         }
         
         // MARK: - DOUBLE BUFF ATK
         
         if abilityUsed.attributes.contains(.doubleBuffAtk) {
-            entity.atkStatus(.improve)
-            entity.atkStatus(.improve)
-            say("\(entity.name) usou \(abilityUsed.name) e seu ataque aumentou muito!", color: .green)
+            target.atkStatus(.improve)
+            target.atkStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) aumentou muito!", color: .green)
+        }
+        
+        // MARK: - TRIPLE BUFF ATK
+        
+        if abilityUsed.attributes.contains(.tripleBuffAtk) {
+            target.atkStatus(.improve)
+            target.atkStatus(.improve)
+            target.atkStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) aumentou extremamente!", color: .green)
         }
         
         // MARK: - BUFF DEF
         
         if abilityUsed.attributes.contains(.buffDef) {
-            entity.defStatus(.improve)
-            say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou!", color: .green)
+            target.defStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) aumentou!", color: .green)
         }
         
         // MARK: - DOUBLE BUFF DEF
         
         if abilityUsed.attributes.contains(.doubleBuffDef) {
-            entity.defStatus(.improve)
-            entity.defStatus(.improve)
-            say("\(entity.name) usou \(abilityUsed.name) e sua defesa aumentou muito!", color: .green)
+            target.defStatus(.improve)
+            target.defStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) aumentou muito!", color: .green)
+        }
+        
+        // MARK: - TRIPLE BUFF DEF
+        
+        if abilityUsed.attributes.contains(.tripleBuffDef) {
+            target.defStatus(.improve)
+            target.defStatus(.improve)
+            target.defStatus(.improve)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) aumentou extremamente!", color: .green)
         }
         
         // MARK: - NERF ATK
@@ -107,6 +131,15 @@ extension Message {
             say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou muito!", color: .orange)
         }
         
+        // MARK: - TRIPLE NERF ATK
+        
+        if abilityUsed.attributes.contains(.tripleNerfAtk) {
+            target.atkStatus(.reduce)
+            target.atkStatus(.reduce)
+            target.atkStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e o ataque de \(target.name) abaixou extremamente!", color: .orange)
+        }
+        
         // MARK: - NERF DEF
         
         if abilityUsed.attributes.contains(.nerfDef) {
@@ -122,11 +155,19 @@ extension Message {
             say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou muito!", color: .orange)
         }
         
+        // MARK: - TRIPLE NERF DEF
+        
+        if abilityUsed.attributes.contains(.tripleNerfDef) {
+            target.defStatus(.reduce)
+            target.defStatus(.reduce)
+            say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou extremamente!", color: .orange)
+        }
+        
         // MARK: - PROTECTED
         
         if abilityUsed.attributes.contains(.protect) {
-            entity.protected(true)
-            say("\(entity.name) usou \(abilityUsed.name) e está imune ao próximo golpe!", color: .blue)
+            target.protected(true)
+            say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está imune ao próximo golpe!", color: .blue)
         }
         
         // MARK: - DISABLED
@@ -144,7 +185,7 @@ extension Message {
         if abilityUsed.attributes.contains(where: { $0.shouldDoDamage }) {
             say("\(entity.name) usou \(abilityUsed.name)", color: .yellow)
             let damage = doDamage(striker: entity,
-                                  targetName: "\(targetId)",
+                                  targetName: targetId,
                                   basePower: abilityUsed.power,
                                   isExa: !abilityUsed.attributes.contains(.physical),
                                   isCrit: abilityUsed.attributes.contains(.critical),
@@ -153,7 +194,7 @@ extension Message {
             // MARK: - DRAIN
             if abilityUsed.attributes.contains(.drain) {
                 say("\(entity.name) usou \(abilityUsed.name) para drenar \(target.name)!", color: .yellow)
-                heal(entity: &entity, with: damage/2)
+                heal(entityId: entity.name, with: damage/2)
                 updateEntity(entity)
             }
         }

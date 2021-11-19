@@ -20,13 +20,11 @@ extension Message {
     
     func atk() {
         let values = content.split(separator: " ").dropFirst()
-        guard let entityId = values.first,
-              let directionId = values.last else { return }
-        var entity = getEntity(with: entityId.lowercased())
+        guard let entityId = values.first, let directionId = values.last else { return }
+        var entity = getEntity(with: "\(entityId)")
         let direction: Status.Direction = directionId == "+" ? .improve : .reduce
         entity.atkStatus(direction)
-        say("O ataque de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!",
-            color: direction == .improve ? .blue : .orange)
+        say("O ataque de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!", color: direction == .improve ? .blue : .orange)
         updateEntity(entity)
     }
     
@@ -34,18 +32,17 @@ extension Message {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first,
               let directionId = values.last else { return }
-        var entity = getEntity(with: entityId.lowercased())
+        var entity = getEntity(with: "\(entityId)")
         let direction: Status.Direction = directionId == "+" ? .improve : .reduce
         entity.defStatus(direction)
-        say("A defesa de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!",
-            color: direction == .improve ? .blue : .orange)
+        say("A defesa de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!", color: direction == .improve ? .blue : .orange)
         updateEntity(entity)
     }
     
     func protect() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
-        var entity = getEntity(with: entityId.lowercased())
+        var entity = getEntity(with: "\(entityId)")
         entity.protected(true)
         say("\(entity.name) está protegido!", color: .blue)
         updateEntity(entity)
@@ -54,7 +51,7 @@ extension Message {
     func disable() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
-        var entity = getEntity(with: entityId.lowercased())
+        var entity = getEntity(with: "\(entityId)")
         entity.disabled(true)
         say("\(entity.name) está desabilitado!", color: .orange)
         updateEntity(entity)

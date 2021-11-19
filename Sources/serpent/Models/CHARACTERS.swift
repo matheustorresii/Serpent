@@ -7,79 +7,71 @@
 
 import Foundation
 
-// MARK: - LEVEL 31 (155)
+// MARK: - LEVEL 43 (215)
 
 var CHARACTERS: [Entity] = [
     .init(name: "Ayie",
-          hp: 23,
-          atk: 23,
-          exa: 43,
-          def: 20,
-          spd: 26,
+          hp: 38,
+          atk: 43,
+          exa: 58,
+          def: 35,
+          spd: 31,
+          money: 100,
+          item: [
+            .init(name: "Poção de Ressurreição", effect: .revive, size: .large)
+          ],
           abilities: [
             .init(name: "Interdimensional",
                   power: 1,
                   pp: 5,
                   attributes: [.combo]),
-            .init(name: "Necrosador",
+            .init(name: "Neclo",
                   power: 0,
                   pp: 3,
-                  attributes: [.buffAtk]),
+                  attributes: [.doubleBuffAtk, .doubleNerfDef]),
             .init(name: "Roubar Vida",
                   power: 1,
                   pp: 5,
                   attributes: [.drain]),
           ]),
-    .init(name: "Froycon",
-          hp: 30,
-          atk: 36,
-          exa: 36,
-          def: 30,
-          spd: 23,
-          abilities: [
-            .init(name: "Aura Negra",
-                  power: 0,
-                  pp: 3,
-                  attributes: [.protect]),
-            .init(name: "Confusão Mental",
-                  power: 0,
-                  pp: 5,
-                  attributes: [.critical]),
-            .init(name: "Deus do Pesadelo",
-                  power: 0,
-                  pp: 1,
-                  attributes: [.buffAtk, .buffDef]),
-          ]),
     .init(name: "Maha",
-          hp: 50,
-          atk: 60,
+          hp: 70,
+          atk: 90,
           exa: 5,
-          def: 30,
+          def: 40,
           spd: 10,
+          money: 100,
+          item: [
+            .init(name: "Poção de Ressurreição", effect: .revive, size: .large)
+          ],
           abilities: [
-            .init(name: "Arte Família",
+            .init(name: "Arte família",
                   power: 0,
                   pp: 5,
                   attributes: [.critical, .physical]),
-            .init(name: "Toque Camarada",
-                  power: 0,
-                  pp: 5,
-                  attributes: [.heal]),
-            .init(name: "Concentração de Zhū Què",
+            .init(name: "Manto vermelho",
                   power: 0,
                   pp: 3,
+                  attributes: [.protect]),
+            .init(name: "Concentração de Zhū Què",
+                  power: 0,
+                  pp: 5,
                   attributes: [.buffAtk]),
           ]),
     .init(name: "Oleg",
-          hp: 30,
+          hp: 45,
           atk: 0,
-          exa: 35,
-          def: 20,
-          spd: 70,
+          exa: 45,
+          def: 35,
+          spd: 90,
+          money: 100,
+          item: [
+            .init(name: "Poção de Ressurreição", effect: .revive, size: .large)
+          ],
           abilities: [
             .init(name: "Ira de Ullr",
                   power: 0,
-                  pp: 3,
+                  pp: 5,
                   attributes: [.buffAtk]),
             .init(name: "Curaflecha",
                   power: 2,
@@ -90,19 +82,15 @@ var CHARACTERS: [Entity] = [
                   pp: 1,
                   attributes: [.critical]),
           ]),
-    .init(name: "Pimentinha",
+    .init(name: "Yareth",
           hp: 1000,
-          atk: 50,
-          exa: 50,
+          atk: 1,
+          exa: 1,
           def: 1000,
-          spd: 50,
-          abilities: [
-            .init(name: "BUFFA MUITO ATK", power: 0, pp: 5, attributes: [.doubleBuffAtk]),
-            .init(name: "NERFA MUITO DEF", power: 0, pp: 5, attributes: [.doubleNerfDef]),
-            .init(name: "BUFFA MUITO TUDO", power: 0, pp: 5, attributes: [.doubleBuffAtk, .doubleBuffDef])
-          ])
+          spd: 1,
+          money: 100,
+          item: [],
+          abilities: [])
 ]
 
 var ENEMIES = [Entity]()
-
-var BOSS = CURRENT_BOSS

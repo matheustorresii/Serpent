@@ -43,6 +43,7 @@ extension Message {
         say("\(striker.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
         
         if target.currentHp < 1 {
+            target.currentHp(0)
             say("\(target.name) foi derrotado", color: .red)
         }
         

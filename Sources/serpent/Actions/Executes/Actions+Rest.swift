@@ -11,11 +11,7 @@ extension Message {
     func rest() {
         let values = content.split(separator: " ").dropFirst()
         guard let value = values.first, let index = Int(value) else { return }
-        guard let character = Character(rawValue: author?.id.description ?? "") else {
-            say(Utils.Strings.error.rawValue, color: .red)
-            id()
-            return
-        }
+        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
         var entity = character.entity
         guard entity.abilities[exists: index - 1] != nil else { return }
         let currentPP = entity.abilities[index - 1].pp

@@ -15,10 +15,11 @@ extension Message {
               let value = Int(lastValue) else { return }
         
         var entity = getEntity(with: "\(entityId)")
-        heal(entity: &entity, with: value)
+        heal(entityId: entity.name, with: value)
     }
     
-    func heal(entity: inout Entity, with value: Int) {
+    func heal(entityId: String, with value: Int) {
+        var entity = getEntity(with: entityId)
         let newHp = getNewHp(for: entity, with: value)
         entity.currentHp(newHp)
         say("\(entity.name) foi curado e agora possui \(entity.currentHp) de HP", color: .green)

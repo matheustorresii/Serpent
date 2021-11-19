@@ -17,6 +17,6 @@ extension Message {
         
         let striker = getEntity(with: first)
         
-        doDamage(striker: striker, targetName: targetName)
+        _ = doDamage(striker: striker, targetName: targetName)
     }
 }

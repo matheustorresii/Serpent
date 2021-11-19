@@ -7,59 +7,6 @@
 
 import Foundation
 
-enum Status {
-    case doubleNerfed
-    case nerfed
-    case normal
-    case buffed
-    case doubleBuffed
-    
-    enum Direction {
-        case reduce
-        case improve
-    }
-    
-    var multiplier: Double {
-        switch self {
-        case .doubleNerfed: return 0.50
-        case .nerfed: return 0.75
-        case .normal: return 1.00
-        case .buffed: return 1.25
-        case .doubleBuffed: return 1.50
-        }
-    }
-    
-    var next: Status {
-        switch self {
-        case .doubleNerfed: return .nerfed
-        case .nerfed:       return .normal
-        case .normal:       return .buffed
-        case .buffed:       return .doubleBuffed
-        case .doubleBuffed: return .doubleBuffed
-        }
-    }
-    
-    var previous: Status {
-        switch self {
-        case .doubleNerfed: return .doubleNerfed
-        case .nerfed:       return .doubleNerfed
-        case .normal:       return .nerfed
-        case .buffed:       return .normal
-        case .doubleBuffed: return .buffed
-        }
-    }
-    
-    var description: (String, Direction)? {
-        switch self {
-        case .doubleNerfed: return ("muito abaixo do normal", .reduce)
-        case .nerfed:       return ("abaixo do normal", .reduce)
-        case .normal:       return nil
-        case .buffed:       return ("acima do normal", .improve)
-        case .doubleBuffed: return ("muito acima do normal", .improve)
-        }
-    }
-}
-
 struct Entity {
     let name: String
     var currentHp: Int
@@ -70,6 +17,8 @@ struct Entity {
     let def: Int
     let spd: Int
     
+    var money: Int
+    var items: [Item]
     var abilities: [Ability]
     
     var atkStatus: Status
@@ -83,7 +32,9 @@ struct Entity {
          exa: Int,
          def: Int,
          spd: Int,
-         abilities: [Ability]) {
+         money: Int = 0,
+         item: [Item] = [],
+         abilities: [Ability] = []) {
         
         self.name = name
         self.currentHp = hp
@@ -94,6 +45,8 @@ struct Entity {
         self.def = def
         self.spd = spd
         
+        self.money = money
+        self.items = item
         self.abilities = abilities
         
         self.atkStatus = .normal
@@ -111,6 +64,10 @@ struct Entity {
     
     mutating func currentHp(_ value: Int) {
         currentHp = value
+    }
+    
+    mutating func money(_ value: Int) {
+        money += value
     }
     
     mutating func atkStatus(_ direction: Status.Direction) {

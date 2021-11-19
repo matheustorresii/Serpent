@@ -25,7 +25,7 @@ extension Message {
     }
     
     func updateEntity(_ entity: Entity) {
-        let entityName = entity.name.lowercased()
+        let entityName = entity.name
         if entity.name == BOSS.name {
             BOSS = entity
         } else if CHARACTERS.contains(where: { $0.name == entity.name }) {
@@ -38,6 +38,8 @@ extension Message {
             ENEMIES[index] = entity
             if entity.currentHp < 1 {
                 ENEMIES.remove(at: index)
+                moneyToPlayers(entity.money)
+                itemsToPlayers(entity.items)
             }
         }
     }

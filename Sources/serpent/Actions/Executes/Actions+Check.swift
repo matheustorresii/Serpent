@@ -19,19 +19,21 @@ extension Message {
     }
     
     fileprivate func checkSelf() {
-        guard let character = Character(rawValue: author?.id.description ?? "") else {
-            say(Utils.Strings.error.rawValue, color: .red)
-            id()
-            return
-        }
+        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
         check(entity: character.entity, shouldShowPP: true)
     }
     
     fileprivate func check(entity: Entity, shouldShowPP: Bool = false) {
-        say("\(entity.name) está com \(entity.currentHp) de HP", color: .yellow)
+        say("\(entity.name) está com \(entity.currentHp) de HP e ♀︎\(entity.money)", color: .yellow)
         if shouldShowPP {
             let message = entity.abilities.map {
                 return "- \($0.name) possui \($0.pp) de pp -"
+            }.joined(separator: "\n")
+            say(message, color: .yellow)
+        }
+        if !entity.items.isEmpty {
+            let message = entity.items.enumerated().map {
+                return "- Item \($0 + 1): \($1.name) (\($1.effect.description.capitalized) - \($1.size.description.capitalized))"
             }.joined(separator: "\n")
             say(message, color: .yellow)
         }

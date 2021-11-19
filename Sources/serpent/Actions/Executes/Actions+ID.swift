@@ -13,4 +13,9 @@ extension Message {
         let userId = author?.id.description ?? Utils.Strings.error.rawValue
         say("O ID de \(username) é \(userId)", color: .blue)
     }
+    
+    func idError() {
+        say(Utils.Strings.error.rawValue, color: .red)
+        id()
+    }
 }

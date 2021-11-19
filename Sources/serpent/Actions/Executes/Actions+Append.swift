@@ -26,23 +26,51 @@ extension Message {
             return
         }
         let name = String(value0)
+        let money = Int(values[exists: 6] ?? "0") ?? .zero
         let enemy = Entity(name: name,
                            hp: hp,
                            atk: atk,
                            exa: 0,
                            def: def,
                            spd: spd,
-                           abilities: [])
+                           money: money)
         guard !ENEMIES.contains(where: { $0.name == enemy.name}) else {
             say("\(Utils.Strings.error.rawValue): Já existe um inimigo chamado \"\(enemy.name)\"", color: .red)
             return
         }
         ENEMIES.append(enemy)
-        say("O novo inimigo \"\(name)\" foi adicionado no index \"\(ENEMIES.count)\", ele possui:" , color: .yellow)
-        say("\(hp) de HP", color: .yellow)
-        say("\(atk) de Ataque", color: .yellow)
-        say("\(def) de Defesa", color: .yellow)
-        say("\(spd) de Velocidade", color: .yellow)
-        print(ENEMIES)
+        let message = """
+                    O novo inimigo \"\(name)\" foi adicionado no index \"\(ENEMIES.count)\", ele possui:
+                    \(hp) de HP
+                    \(atk) de Ataque
+                    \(def) de Defesa
+                    \(spd) de Velocidade
+                    ♀︎\(money) de Drop
+                    """
+        say(message, color: .yellow)
+    }
+    
+    func appendItem() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let entityValue = values[exists: 1],
+              let nameValue = values[exists: 2],
+              let effectValue = values[exists: 3],
+              let sizeValue = values[exists: 4],
+              let effect = Item.Effect(rawValue: "\(effectValue)"),
+              let size = Item.Size(rawValue: "\(sizeValue)") else {
+            say("\(Utils.Strings.error.rawValue): Erro ao adicionar novo item", color: .red)
+            return
+        }
+        
+        let item = Item(name: "\(nameValue)", effect: effect, size: size)
+        give(item: item, to: "\(entityValue)")
+    }
+    
+    func give(item: Item, to entityId: String) {
+        var entity = getEntity(with: "\(entityId)")
+        entity.items.append(item)
+        updateEntity(entity)
+        let message = "O item \(item.name) foi adicionado para \(entity.name), o item possui efeitos de \(item.effect.description) do tamanho \(item.size.description)"
+        say(message, color: .yellow)
     }
 }

@@ -13,11 +13,7 @@ extension Message {
         guard let first = values.first, let last = values.last,
               let min = Int(first), let max = Int(last),
               min < max else { return }
-        guard let character = Character(rawValue: author?.id.description ?? "") else {
-            say(Utils.Strings.error.rawValue, color: .red)
-            id()
-            return
-        }
+        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
         let random = Int.random(in: min...max)
         say("\(character.entity.name) rolou o número \(random)", color: .yellow)
     }

@@ -10,21 +10,20 @@ import Sword
 extension Message {
     func boss() {
         let values = content.split(separator: " ").dropFirst()
-        guard let firstValue = values.first else { return }
-        let targetId = "\(firstValue)"
+        guard let targetId = values.first else { return }
         if values.count == 1 {
-            bossAttack(targetId: targetId)
+            bossAttack(targetId: "\(targetId)")
         } else {
-            guard let lastValue = values.last, let lastInt = Int(lastValue) else { return }
-            bossAbility(targetId: targetId, abilityIndex: lastInt)
+            guard let ability = values.last, let abilityIndex = Int(ability) else { return }
+            bossAbility(targetId: "\(targetId)", abilityIndex: abilityIndex)
         }
     }
     
     fileprivate func bossAttack(targetId: String) {
-        doDamage(striker: BOSS, targetName: targetId)
+        _ = doDamage(striker: BOSS, targetName: targetId)
     }
     
     fileprivate func bossAbility(targetId: String, abilityIndex: Int) {
-        doAbility(entityUsingAbility: BOSS, targetId: targetId, abilityInt: abilityIndex)
+        doAbility(entityId: "boss", targetId: targetId, abilityIndex: abilityIndex)
     }
 }
