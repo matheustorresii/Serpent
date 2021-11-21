@@ -24,7 +24,7 @@ extension Message {
     }
     
     fileprivate func check(entity: Entity, shouldShowExtra: Bool) {
-        say("\(entity.name) está com \(entity.currentHp) de HP e ♀︎\(entity.money)", color: .yellow)
+        say("\(entity.name) está com \(entity.currentHp) de HP\(shouldShowExtra ? " e ♀︎\(entity.money)" : "")", color: .yellow)
         if shouldShowExtra {
             let abilitiesMessage = entity.abilities.map {
                 return "- \($0.name) possui \($0.pp) de pp -"
