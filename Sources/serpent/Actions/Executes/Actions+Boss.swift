@@ -19,6 +19,10 @@ extension Message {
         }
     }
     
+    func bossSummon() {
+        summon(from: BOSS, allies: false)
+    }
+    
     fileprivate func bossAttack(targetId: String) {
         _ = doDamage(striker: BOSS, targetName: targetId)
     }

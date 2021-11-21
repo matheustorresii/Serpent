@@ -17,6 +17,8 @@ struct Entity {
     let def: Int
     let spd: Int
     
+    let summon: Summon?
+    
     var money: Int
     var items: [Item]
     var abilities: [Ability]
@@ -32,6 +34,7 @@ struct Entity {
          exa: Int,
          def: Int,
          spd: Int,
+         summon: Summon? = nil,
          money: Int = 0,
          item: [Item] = [],
          abilities: [Ability] = []) {
@@ -44,6 +47,8 @@ struct Entity {
         self.exa = exa
         self.def = def
         self.spd = spd
+        
+        self.summon = summon
         
         self.money = money
         self.items = item

@@ -12,7 +12,7 @@ extension Message {
         let values = content.split(separator: " ").dropFirst()
         if let lastValue = values.last {
             let entity = getEntity(with: "\(lastValue)")
-            check(entity: entity)
+            check(entity: entity, shouldShowExtra: false)
         } else {
             checkSelf()
         }
@@ -20,22 +20,23 @@ extension Message {
     
     fileprivate func checkSelf() {
         guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
-        check(entity: character.entity, shouldShowPP: true)
+        check(entity: character.entity, shouldShowExtra: true)
     }
     
-    fileprivate func check(entity: Entity, shouldShowPP: Bool = false) {
+    fileprivate func check(entity: Entity, shouldShowExtra: Bool) {
         say("\(entity.name) está com \(entity.currentHp) de HP e ♀︎\(entity.money)", color: .yellow)
-        if shouldShowPP {
-            let message = entity.abilities.map {
+        if shouldShowExtra {
+            let abilitiesMessage = entity.abilities.map {
                 return "- \($0.name) possui \($0.pp) de pp -"
             }.joined(separator: "\n")
-            say(message, color: .yellow)
-        }
-        if !entity.items.isEmpty {
-            let message = entity.items.enumerated().map {
-                return "- Item \($0 + 1): \($1.name) (\($1.effect.description.capitalized) - \($1.size.description.capitalized))"
-            }.joined(separator: "\n")
-            say(message, color: .yellow)
+            say(abilitiesMessage, color: .yellow)
+            
+            if !entity.items.isEmpty {
+                let itemsMessage = entity.items.enumerated().map {
+                    return "- Item \($0 + 1): \($1.name) (\($1.effect.description.capitalized) - \($1.size.description.capitalized))"
+                }.joined(separator: "\n")
+                say(itemsMessage, color: .yellow)
+            }
         }
         if entity.protected { say("\(entity.name) está protegido!", color: .blue) }
         if entity.disabled  { say("\(entity.name) está desabilitado e não pode usar suas habilidades!", color: .orange) }

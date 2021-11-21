@@ -45,7 +45,7 @@ extension Message {
         
         if abilityUsed.attributes.contains(.area) {
             say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
-            for currentCharacter in CHARACTERS {
+            for currentCharacter in CHARACTERS.dropLast() {
                 _ = doDamage(striker: BOSS,
                              targetName: currentCharacter.name,
                              basePower: abilityUsed.power,
@@ -182,7 +182,7 @@ extension Message {
         // UpdateEntities antes do damage pra chegar a dar o dano sem sobrescrever os buffs/nerfs
         updateEntities(entity, target)
         
-        if abilityUsed.attributes.contains(where: { $0.shouldDoDamage }) {
+        if abilityUsed.attributes.contains(where: { $0.shouldDoDamage }) || abilityUsed.attributes.isEmpty {
             say("\(entity.name) usou \(abilityUsed.name)", color: .yellow)
             let damage = doDamage(striker: entity,
                                   targetName: targetId,
@@ -197,6 +197,14 @@ extension Message {
                 heal(entityId: entity.name, with: damage/2)
                 updateEntity(entity)
             }
+        }
+        
+        // MARK: - SUICIDE
+        
+        if abilityUsed.attributes.contains(.suicide) {
+            entity.currentHp(0)
+            say("\(entity.name) usou \(abilityUsed.name) e agora ele está morto! :(", color: .red)
+            updateEntity(entity)
         }
     }
 }

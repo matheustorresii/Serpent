@@ -47,6 +47,9 @@ enum Attributes {
     case area
     case disable
     
+    // SPECIAL
+    case suicide
+    
     var shouldDoDamage: Bool {
         switch self {
         case .buffAtk,
@@ -62,7 +65,8 @@ enum Attributes {
                 .tripleBuffAtk,
                 .tripleBuffDef,
                 .tripleNerfAtk,
-                .tripleNerfDef:
+                .tripleNerfDef,
+                .suicide:
             return false
         case .physical,
                 .combo,

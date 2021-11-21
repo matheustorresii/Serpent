@@ -7,18 +7,6 @@
 
 import Foundation
 
-fileprivate let ANUBIS = Entity(name: "Anúbis",
-                                hp: 500,
-                                atk: 40,
-                                exa: 50,
-                                def: 80,
-                                spd: 50,
-                                abilities: [
-                                  .init(name: "Esfera sombria", power: 1, pp: 10, attributes: []),
-                                  .init(name: "Onda da escuridão", power: 1, pp: 5, attributes: [.area]),
-                                  .init(name: "Armadura negra", power: 0, pp: 3, attributes: [.buffDef])
-                                ])
-
 fileprivate let OKOT = Entity(name: "Okot (Drayden)",
                               hp: 550,
                               atk: 20,
@@ -49,6 +37,7 @@ fileprivate let FROYCON: Entity = .init(name: "Froycon",
                                         exa: 36,
                                         def: 30,
                                         spd: 23,
+                                        summon: .IKELOS,
                                         money: 100,
                                         item: [],
                                         abilities: [
@@ -64,28 +53,28 @@ fileprivate let FROYCON: Entity = .init(name: "Froycon",
                                                   power: 0,
                                                   pp: 1,
                                                   attributes: [.buffAtk, .buffDef]),
-          ])
+                                        ])
 
 fileprivate let IKELOS: Entity = .init(name: "Froycon (Deus do Pesadelo)",
-                                        hp: 100,
-                                        atk: 46,
-                                        exa: 46,
-                                        def: 40,
-                                        spd: 32,
-                                        abilities: [
-                                          .init(name: "Névoa negra",
-                                                power: 1,
-                                                pp: 3,
-                                                attributes: [.area]),
-                                          .init(name: "Paralisia do Sono",
-                                                power: 0,
-                                                pp: 5,
-                                                attributes: [.nerfAtk]),
-                                          .init(name: "Deus do Pesadelo Desperto",
-                                                power: 0,
-                                                pp: 1,
-                                                attributes: [.doubleBuffAtk, .doubleBuffDef]),
-                                        ])
+                                       hp: 100,
+                                       atk: 46,
+                                       exa: 46,
+                                       def: 40,
+                                       spd: 32,
+                                       abilities: [
+                                        .init(name: "Névoa negra",
+                                              power: 1,
+                                              pp: 3,
+                                              attributes: [.area]),
+                                        .init(name: "Paralisia do Sono",
+                                              power: 0,
+                                              pp: 5,
+                                              attributes: [.nerfAtk]),
+                                        .init(name: "Deus do Pesadelo Desperto",
+                                              power: 0,
+                                              pp: 1,
+                                              attributes: [.doubleBuffAtk, .doubleBuffDef]),
+                                       ])
 
 fileprivate let YETI: Entity = .init(name: "Yeti",
                                      hp: 120,
@@ -103,4 +92,48 @@ fileprivate let YETI: Entity = .init(name: "Yeti",
                                               pp: 3,
                                               attributes: [.disable])
                                      ])
-var BOSS = YETI
+
+fileprivate let ANUBIS = Entity(name: "Anúbis",
+                                hp: 500,
+                                atk: 40,
+                                exa: 50,
+                                def: 80,
+                                spd: 50,
+                                money: 100,
+                                item: [
+                                    .init(name: "Poção de Ataque",
+                                          effect: .buffAtk,
+                                          size: .small),
+                                    .init(name: "Poção de Defesa",
+                                          effect: .buffDef,
+                                          size: .small)
+                                ],
+                                abilities: [
+                                    .init(name: "Esfera Sombria", power: 1, pp: 10, attributes: []),
+                                    .init(name: "Onda da Morte", power: 1, pp: 5, attributes: [.area]),
+                                    .init(name: "Armadura Sombria", power: 0, pp: 3, attributes: [.doubleBuffDef])
+                                ])
+
+fileprivate let GRYPHON = Entity(name: "Grifo",
+                                 hp: 1000,
+                                 atk: 55,
+                                 exa: 55,
+                                 def: 40,
+                                 spd: 60,
+                                 money: 1500,
+                                 item: [
+                                    .init(name: "Pena de Grifo",
+                                          effect: .revive,
+                                          size: .large)
+                                 ],
+                                 abilities: [
+                                    .init(name: "Penas mágicas",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.heal, .buffDef]),
+                                    .init(name: "Ventania",
+                                          power: 1,
+                                          pp: 10,
+                                          attributes: [.area])
+                                 ])
+var BOSS = ANUBIS

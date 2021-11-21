@@ -10,6 +10,7 @@ import Sword
 
 enum Actions: String {
     case id
+    case test
     
     case ability
     case append
@@ -17,6 +18,7 @@ enum Actions: String {
     case atk
     case attack
     case boss
+    case bossSummon
     case check
     case damage
     case def
@@ -30,11 +32,13 @@ enum Actions: String {
     case random
     case reset
     case rest
-    case test
+    case summon
+    case unrest
     
     var execute: ((Message) -> Void) {
         switch self {
         case .id:       return { $0.id() }
+        case .test:       return { $0.test() }
             
         case .ability:    return { $0.ability() }
         case .append:     return { $0.append() }
@@ -42,6 +46,7 @@ enum Actions: String {
         case .atk:        return { $0.atk() }
         case .attack:     return { $0.attack(isExtension: false) }
         case .boss:       return { $0.boss() }
+        case .bossSummon: return { $0.bossSummon() }
         case .check:      return { $0.check() }
         case .damage:     return { $0.damage() }
         case .def:        return { $0.def() }
@@ -55,7 +60,8 @@ enum Actions: String {
         case .random:     return { $0.random() }
         case .reset:      return { $0.reset() }
         case .rest:       return { $0.rest() }
-        case .test:       return { $0.test() }
+        case .summon:     return { $0.summon() }
+        case .unrest:     return { $0.unrest() }
         }
     }
 }
