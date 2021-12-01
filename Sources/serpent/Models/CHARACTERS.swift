@@ -11,7 +11,7 @@ import Foundation
 
 var CHARACTERS: [Entity] = [
     .init(name: "Ayie",
-          hp: 38,
+          hp: 48,
           atk: 43,
           exa: 58,
           def: 35,
