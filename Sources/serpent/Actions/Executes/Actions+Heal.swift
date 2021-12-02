@@ -14,8 +14,7 @@ extension Message {
               let lastValue = values.last,
               let value = Int(lastValue) else { return }
         
-        var entity = getEntity(with: "\(entityId)")
-        heal(entityId: entity.name, with: value)
+        heal(entityId: "\(entityId)", with: value)
     }
     
     func heal(entityId: String, with value: Int) {

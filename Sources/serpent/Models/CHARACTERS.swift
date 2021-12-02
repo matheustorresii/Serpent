@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - LEVEL 43 (215)
+// MARK: - LEVEL 55 (275)
 
 var CHARACTERS: [Entity] = [
     .init(name: "Ayie",
@@ -16,11 +16,9 @@ var CHARACTERS: [Entity] = [
           exa: 58,
           def: 35,
           spd: 31,
-          summon: .EMERE,
-          money: 100,
-          item: [
-            .init(name: "Poção de Ressurreição", effect: .revive, size: .medium)
-          ],
+          summon: nil,
+          money: 1765,
+          item: [],
           abilities: [
             .init(name: "Interdimensional",
                   power: 1,
@@ -42,9 +40,10 @@ var CHARACTERS: [Entity] = [
           def: 40,
           spd: 10,
           summon: .ZHU_QUE,
-          money: 100,
+          money: 1765,
           item: [
-            .init(name: "Poção de Ressurreição", effect: .revive, size: .medium)
+            .init(name: "Esfera de Anúbis Vermelha", effect: .buffAtk, size: .small),
+            .init(name: "Pena de Grifo", effect: .revive, size: .large)
           ],
           abilities: [
             .init(name: "Arte família",
@@ -60,31 +59,6 @@ var CHARACTERS: [Entity] = [
                   pp: 10,
                   attributes: [.buffAtk]),
           ]),
-    .init(name: "Oleg",
-          hp: 45,
-          atk: 0,
-          exa: 45,
-          def: 35,
-          spd: 90,
-          summon: .ULLR,
-          money: 100,
-          item: [
-            .init(name: "Poção de Ressurreição", effect: .revive, size: .medium)
-          ],
-          abilities: [
-            .init(name: "Ira de Ullr",
-                  power: 0,
-                  pp: 10,
-                  attributes: [.buffAtk]),
-            .init(name: "Curaflecha",
-                  power: 2,
-                  pp: 10,
-                  attributes: [.heal]),
-            .init(name: "Flechão",
-                  power: 200,
-                  pp: 1,
-                  attributes: [.critical, .suicide]),
-          ]),
     .init(name: "Yareth",
           hp: 1000,
           atk: 1,
@@ -92,7 +66,7 @@ var CHARACTERS: [Entity] = [
           def: 1000,
           spd: 1,
           summon: .QUETZALCOATL,
-          money: 100,
+          money: 265,
           item: [],
           abilities: [])
 ]

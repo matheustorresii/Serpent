@@ -22,7 +22,7 @@ struct Summon {
 
 extension Summon {
     static let EMERE: Summon = .init(name: "Emere", effect: .protect)
-    static let ZHU_QUE: Summon = .init(name: "Zhū Què", effect: .buffAtk)
+    static let ZHU_QUE: Summon = .init(name: "Zhū Què", effect: .heal)
     static let ULLR: Summon = .init(name: "Ullr", effect: .speed)
     static let IKELOS: Summon = .init(name: "Ikelos", effect: .buffDef)
     static let QUETZALCOATL: Summon = .init(name: "Quetzalcoatl", effect: .speed)

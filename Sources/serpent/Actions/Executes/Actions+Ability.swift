@@ -66,6 +66,7 @@ extension Message {
                 print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
                 heal(entityId: targetId, with: randomValue + abilityUsed.power)
             }
+            return
         }
         
         // MARK: - BUFF ATK

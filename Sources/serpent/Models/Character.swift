@@ -23,7 +23,6 @@ import Foundation
 enum Character: String {
     case ayie = "243371249215078400"
     case maha = "419197752816173057"
-    case oleg = "204663989395783680"
     
     // MASTERS
     case master = "748944007366705223"
@@ -42,8 +41,7 @@ enum Character: String {
         switch self {
             case .ayie:     return 0
             case .maha:     return 1
-            case .oleg:     return 2
-            default:        return 3
+            default:        return 2
         }
     }
     
@@ -51,7 +49,6 @@ enum Character: String {
         switch name.lowercased() {
             case "ayie":    return Character.ayie.entity
             case "maha":    return Character.maha.entity
-            case "oleg":    return Character.oleg.entity
             default:        return Character.master.entity
         }
     }
@@ -60,7 +57,6 @@ enum Character: String {
         switch name.lowercased() {
             case "ayie":    return Character.ayie.index
             case "maha":    return Character.maha.index
-            case "oleg":    return Character.oleg.index
             default:        return Character.master.index
         }
     }

@@ -31,6 +31,30 @@ fileprivate let LOHAN = Entity(name: "Lohan",
                                 .init(name: "Mjölnir", power: 5, pp: 1, attributes: [.combo])
                                ])
 
+fileprivate let OLEG: Entity = .init(name: "Oleg",
+                                     hp: 45,
+                                     atk: 0,
+                                     exa: 45,
+                                     def: 35,
+                                     spd: 90,
+                                     summon: .ULLR,
+                                     money: 265,
+                                     item: [],
+                                     abilities: [
+                                        .init(name: "Ira de Ullr",
+                                              power: 0,
+                                              pp: 10,
+                                              attributes: [.buffAtk]),
+                                        .init(name: "Curaflecha",
+                                              power: 2,
+                                              pp: 10,
+                                              attributes: [.heal]),
+                                        .init(name: "Flechão",
+                                              power: 200,
+                                              pp: 1,
+                                              attributes: [.critical, .suicide]),
+                                     ])
+
 fileprivate let FROYCON: Entity = .init(name: "Froycon",
                                         hp: 30,
                                         atk: 36,
@@ -136,4 +160,4 @@ fileprivate let GRYPHON = Entity(name: "Grifo",
                                           pp: 10,
                                           attributes: [.area])
                                  ])
-var BOSS = ANUBIS
+var BOSS = GRYPHON
