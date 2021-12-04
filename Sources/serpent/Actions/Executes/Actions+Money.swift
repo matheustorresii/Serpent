@@ -23,7 +23,7 @@ extension Message {
     
     func moneyToPlayers(_ value: Int) {
         guard value > 0 else { return }
-        CHARACTERS.forEach {
+        CHARACTERS.players.forEach {
             var entity = getEntity(with: $0.name)
             entity.money(value)
             updateEntity(entity)

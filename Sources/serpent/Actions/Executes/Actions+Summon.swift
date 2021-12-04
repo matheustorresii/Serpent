@@ -15,16 +15,21 @@ extension Message {
     }
     
     func summon(from entity: Entity, allies: Bool) {
-        guard let summon = entity.summon else { return say("\(Utils.Strings.error.rawValue): \(entity.name) não possui um Summon", color: .red) }
-        guard var target = allies ? CHARACTERS.dropLast().randomElement() : BOSS else { return }
+        guard let summon = entity.summon else { return say("\(Utils.Strings.error): \(entity.name) não possui um Summon", color: .red) }
+        guard var target = allies ? CHARACTERS.players.randomElement() : BOSS else { return }
         
         if summon.effect == .speed {
             say("A velocidade de \(target.name) foi aumentada por \(summon.name)!", color: .green)
         }
         
         if summon.effect == .heal {
-            heal(entityId: target.name, with: .random(in: 1...target.hp))
-            say("\(target.name) foi curado por \(summon.name)!", color: .green)
+            if target.currentHp <= 0 {
+                say("\(target.name) está derrotado, ele precisa ser revivido antes.", color: .red)
+            } else {
+                let newHp = heal(entityId: target.name, with: .random(in: 1...target.hp/3))
+                target.currentHp(newHp)
+                say("\(target.name) foi curado por \(summon.name)!", color: .green)
+            }
         }
         
         if summon.effect == .buffAtk {

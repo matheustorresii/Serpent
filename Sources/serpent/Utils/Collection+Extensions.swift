@@ -12,3 +12,9 @@ extension Collection where Indices.Iterator.Element == Index {
         return indices.contains(index) ? self[index] : nil
     }
 }
+
+extension Array where Element == Entity {
+    var players: [Entity] {
+        return CHARACTERS.count == Character.playerCount ? CHARACTERS : CHARACTERS.dropLast()
+    }
+}

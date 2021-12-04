@@ -25,7 +25,9 @@ struct Entity {
     
     var atkStatus: Status
     var defStatus: Status
+
     var protected: Bool
+    var countering: Bool
     var disabled: Bool
     
     init(name: String,
@@ -57,6 +59,7 @@ struct Entity {
         self.atkStatus = .normal
         self.defStatus = .normal
         self.protected = false
+        self.countering = false
         self.disabled = false
     }
     
@@ -64,7 +67,16 @@ struct Entity {
         atkStatus = .normal
         defStatus = .normal
         protected = false
+        countering = false
         disabled = false
+    }
+    
+    mutating func addHp(_ value: Int) {
+        currentHp += value
+    }
+    
+    mutating func subHp(_ value: Int) {
+        currentHp -= value
     }
     
     mutating func currentHp(_ value: Int) {
@@ -85,6 +97,10 @@ struct Entity {
     
     mutating func protected(_ state: Bool) {
         protected = state
+    }
+    
+    mutating func countering(_ state: Bool) {
+        countering = state
     }
     
     mutating func disabled(_ state: Bool) {

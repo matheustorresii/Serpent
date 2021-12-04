@@ -9,28 +9,30 @@ import Sword
 
 extension Message {
     
-    func doDamage(striker: Entity,
-                  targetName: String,
+    func doDamage(entityId: String,
+                  targetId: String,
                   basePower: Int = 0,
                   isExa: Bool = false,
                   isCrit: Bool = false,
-                  isCombo: Bool = false) -> Int {
-        var target = getEntity(with: targetName)
+                  isCombo: Bool = false) -> (Int, Int) {
+        let entity = getEntity(with: entityId)
+        var target = getEntity(with: targetId)
+        
         guard !target.protected else {
             target.protected(false)
             say("\(target.name) estava protegido e não tomou dano!", color: .yellow)
             updateEntity(target)
-            return 0
+            return (0, 0)
         }
         
         let multiplier = isCrit ? 2 : 1
         
-        var damage = Utils.damage(atk: getAtk(for: striker, isExa: isExa),
+        var damage = Utils.damage(atk: getAtk(for: entity, isExa: isExa),
                                   def: getDef(for: target), basePower: basePower)
         
         if isCombo {
-            let oppositeDamage = Utils.damage(atk: getAtk(for: striker, isExa: !isExa),
-                                           def: getDef(for: target), basePower: basePower)
+            let oppositeDamage = Utils.damage(atk: getAtk(for: entity, isExa: !isExa),
+                                              def: getDef(for: target), basePower: basePower)
             damage += oppositeDamage
         }
         
@@ -40,16 +42,20 @@ extension Message {
         
         let description = isCrit ? "crítico" : isCombo ? "de combo" : isExa ? "de extension" : "físico"
         
-        say("\(striker.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
+        say("\(entity.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
         
         if target.currentHp < 1 {
             target.currentHp(0)
             say("\(target.name) foi derrotado", color: .red)
         }
         
-        updateEntity(target)
+        let entityDamage: Int = target.countering ? fullDamage/2 : .zero
         
-        return fullDamage
+        if target.countering {
+            say("\(target.name) estava pronto para revidar e deu \(entityDamage) de dano em \(entity.name)", color: .blue)
+        }
+        
+        return (entityDamage, fullDamage)
     }
     
     fileprivate func getAtk(for entity: Entity, isExa: Bool = false) -> Int {

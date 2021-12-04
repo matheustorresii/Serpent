@@ -15,8 +15,13 @@ struct Utils {
         if damage < 1 { return 1 }
         return random == 10 ? damage * 2 : damage
     }
-    
-    enum Strings: String {
-        case error = "[Error 😵]"
+}
+
+// MARK: - STRINGS
+
+extension Utils {
+    struct Strings {
+        static let error = "[Error 😵]"
+        static let bossId = "boss"
     }
 }

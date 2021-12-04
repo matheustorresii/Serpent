@@ -9,13 +9,13 @@ import Sword
 
 extension Message {
     func id() {
-        let username = author?.username ?? Utils.Strings.error.rawValue
-        let userId = author?.id.description ?? Utils.Strings.error.rawValue
+        let username = author?.username ?? Utils.Strings.error
+        let userId = author?.id.description ?? Utils.Strings.error
         say("O ID de \(username) é \(userId)", color: .blue)
     }
     
     func idError() {
-        say(Utils.Strings.error.rawValue, color: .red)
+        say(Utils.Strings.error, color: .red)
         id()
     }
 }

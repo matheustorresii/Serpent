@@ -23,7 +23,7 @@ extension Message {
         var target = getEntity(with: "\(targetId)")
         
         guard let item = entity.items[exists: itemIndex-1] else {
-            return say("\(Utils.Strings.error.rawValue): Não foi possível encontrar esse item!", color: .red)
+            return say("\(Utils.Strings.error): Não foi possível encontrar esse item!", color: .red)
         }
         
         // MARK: - HEAL & REVIVE
@@ -33,14 +33,16 @@ extension Message {
                 say("\(target.name) está derrotado, ele precisa ser revivido antes.", color: .red)
                 return
             }
+            var newHp: Int
             switch item.size {
             case .small:
-                heal(entityId: target.name, with: target.hp/4)
+                newHp = heal(entityId: target.name, with: target.hp/4)
             case .medium:
-                heal(entityId: target.name, with: target.hp/2)
+                newHp = heal(entityId: target.name, with: target.hp/2)
             case .large:
-                heal(entityId: target.name, with: target.hp/1)
+                newHp = heal(entityId: target.name, with: target.hp/1)
             }
+            target.currentHp(newHp)
         }
         
         // MARK: - BUFF ATK
@@ -91,12 +93,12 @@ extension Message {
         // MARK: - REMOVE ITEM & UPDATE ENTITIES
         
         entity.items.remove(at: itemIndex-1)
-        updateEntities(entity, target)
+        updateEntity(entity, target)
     }
     
     func itemsToPlayers(_ items: [Item]) {
         items.forEach { item in
-            guard let player = CHARACTERS.dropLast().randomElement() else { return }
+            guard let player = CHARACTERS.players.randomElement() else { return }
             give(item: item, to: player.name)
         }
     }

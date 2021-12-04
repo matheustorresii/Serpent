@@ -21,7 +21,7 @@ extension Message {
         guard let targetId = values.first, let ability = values.last, let abilityIndex = Int(ability) else { return }
         var target = getEntity(with: "\(targetId)")
         guard let abilityUsed = target.abilities[exists: abilityIndex-1] else {
-            say("\(Utils.Strings.error.rawValue): Não foi possível achar essa habilidade", color: .red)
+            say("\(Utils.Strings.error): Não foi possível achar essa habilidade", color: .red)
             return
         }
         target.abilities[abilityIndex-1].pp(abilityUsed.pp + (rest ? 1 : -1))

@@ -25,6 +25,7 @@ enum Attributes {
     case nerfAtk
     case nerfDef
     case protect
+    case counter
     
     case doubleBuffAtk
     case doubleBuffDef
@@ -40,7 +41,10 @@ enum Attributes {
     case physical
     case combo
     case critical
+    
+    // HEALING
     case heal
+    case revive
     case drain
     
     // BOSS
@@ -57,7 +61,9 @@ enum Attributes {
                 .nerfAtk,
                 .nerfDef,
                 .protect,
+                .counter,
                 .heal,
+                .revive,
                 .doubleBuffAtk,
                 .doubleBuffDef,
                 .doubleNerfAtk,

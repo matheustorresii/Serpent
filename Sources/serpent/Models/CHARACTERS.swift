@@ -50,25 +50,15 @@ var CHARACTERS: [Entity] = [
                   power: 0,
                   pp: 10,
                   attributes: [.critical, .physical]),
-            .init(name: "Manto vermelho",
+            .init(name: "Fogo corrosivo",
                   power: 0,
                   pp: 5,
-                  attributes: [.protect]),
+                  attributes: [.doubleNerfAtk]),
             .init(name: "Concentração de Zhū Què",
                   power: 0,
                   pp: 10,
                   attributes: [.buffAtk]),
-          ]),
-    .init(name: "Yareth",
-          hp: 1000,
-          atk: 1,
-          exa: 1,
-          def: 1000,
-          spd: 1,
-          summon: .QUETZALCOATL,
-          money: 265,
-          item: [],
-          abilities: [])
+          ])
 ]
 
 var ENEMIES = [Entity]()

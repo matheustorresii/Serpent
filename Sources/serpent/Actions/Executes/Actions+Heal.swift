@@ -14,15 +14,17 @@ extension Message {
               let lastValue = values.last,
               let value = Int(lastValue) else { return }
         
-        heal(entityId: "\(entityId)", with: value)
+        var entity = getEntity(with: "\(entityId)")
+        let newHp = heal(entityId: "\(entityId)", with: value)
+        entity.currentHp(newHp)
+        updateEntity(entity)
     }
     
-    func heal(entityId: String, with value: Int) {
-        var entity = getEntity(with: entityId)
+    func heal(entityId: String, with value: Int) -> Int {
+        let entity = getEntity(with: entityId)
         let newHp = getNewHp(for: entity, with: value)
-        entity.currentHp(newHp)
-        say("\(entity.name) foi curado e agora possui \(entity.currentHp) de HP", color: .green)
-        updateEntity(entity)
+        say("\(entity.name) foi curado e agora possui \(newHp) de HP", color: .green)
+        return newHp
     }
     
     fileprivate func getNewHp(for entity: Entity, with value: Int) -> Int {

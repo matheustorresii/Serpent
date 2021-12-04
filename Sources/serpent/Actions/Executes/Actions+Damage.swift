@@ -10,13 +10,16 @@ import Sword
 extension Message {
     func damage() {
         let values = content.split(separator: " ").dropFirst()
-        guard let firstValue = values.first, let lastValue = values.last else { return }
+        guard let entityId = values.first, let targetId = values.last else { return }
+
+        var entity = getEntity(with: "\(entityId)")
+        var target = getEntity(with: "\(targetId)")
         
-        let first = String(firstValue)
-        let targetName = String(lastValue)
+        let (entityDamage, targetDamage) = doDamage(entityId: "\(entityId)", targetId: "\(targetId)")
         
-        let striker = getEntity(with: first)
+        entity.subHp(entityDamage)
+        target.subHp(targetDamage)
         
-        _ = doDamage(striker: striker, targetName: targetName)
+        updateEntity(entity, target)
     }
 }

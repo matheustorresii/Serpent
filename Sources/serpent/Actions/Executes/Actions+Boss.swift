@@ -24,10 +24,18 @@ extension Message {
     }
     
     fileprivate func bossAttack(targetId: String) {
-        _ = doDamage(striker: BOSS, targetName: targetId)
+        var entity = getEntity(with: Utils.Strings.bossId)
+        var target = getEntity(with: targetId)
+        
+        let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId, targetId: targetId)
+        
+        entity.subHp(entityDamage)
+        target.subHp(targetDamage)
+        
+        updateEntity(entity, target)
     }
     
     fileprivate func bossAbility(targetId: String, abilityIndex: Int) {
-        doAbility(entityId: "boss", targetId: targetId, abilityIndex: abilityIndex)
+        doAbility(entityId: Utils.Strings.bossId, targetId: targetId, abilityIndex: abilityIndex)
     }
 }

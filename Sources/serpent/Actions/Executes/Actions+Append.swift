@@ -22,7 +22,7 @@ extension Message {
               let atk = Int(value2),
               let def = Int(value3),
               let spd = Int(value4) else {
-            say("\(Utils.Strings.error.rawValue): Erro ao adicionar novo inimigo", color: .red)
+            say("\(Utils.Strings.error): Erro ao adicionar novo inimigo", color: .red)
             return
         }
         let name = String(value0)
@@ -35,7 +35,7 @@ extension Message {
                            spd: spd,
                            money: money)
         guard !ENEMIES.contains(where: { $0.name == enemy.name}) else {
-            say("\(Utils.Strings.error.rawValue): Já existe um inimigo chamado \"\(enemy.name)\"", color: .red)
+            say("\(Utils.Strings.error): Já existe um inimigo chamado \"\(enemy.name)\"", color: .red)
             return
         }
         ENEMIES.append(enemy)
@@ -58,7 +58,7 @@ extension Message {
               let sizeValue = values[exists: 4],
               let effect = Item.Effect(rawValue: "\(effectValue)"),
               let size = Item.Size(rawValue: "\(sizeValue)") else {
-            say("\(Utils.Strings.error.rawValue): Erro ao adicionar novo item", color: .red)
+            say("\(Utils.Strings.error): Erro ao adicionar novo item", color: .red)
             return
         }
         
@@ -69,8 +69,8 @@ extension Message {
     func give(item: Item, to entityId: String) {
         var entity = getEntity(with: "\(entityId)")
         entity.items.append(item)
-        updateEntity(entity)
         let message = "O item \(item.name) foi adicionado para \(entity.name), o item possui efeitos de \(item.effect.description) do tamanho \(item.size.description)"
         say(message, color: .yellow)
+        updateEntity(entity)
     }
 }

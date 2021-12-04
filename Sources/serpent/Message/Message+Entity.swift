@@ -18,13 +18,11 @@ extension Message {
         }
     }
     
-    func updateEntities(_ entities: Entity...) {
-        for entity in entities {
-            updateEntity(entity)
-        }
+    func updateEntity(_ entities: Entity...) {
+        entities.forEach { update(entity: $0) }
     }
     
-    func updateEntity(_ entity: Entity) {
+    fileprivate func update(entity: Entity) {
         let entityName = entity.name
         if entity.name == BOSS.name {
             BOSS = entity
@@ -46,7 +44,7 @@ extension Message {
     
     func enemyIndexWith(name: String) -> Int? {
         guard let index = ENEMIES.firstIndex(where: { $0.name == name }) else {
-            say("\(Utils.Strings.error.rawValue): Não foi possível achar o index de \(name)", color: .red)
+            say("\(Utils.Strings.error): Não foi possível achar o index de \(name)", color: .red)
             return nil
         }
         return index

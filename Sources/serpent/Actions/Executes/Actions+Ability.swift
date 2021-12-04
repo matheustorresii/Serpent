@@ -23,7 +23,7 @@ extension Message {
         var target = getEntity(with: "\(targetId)")
         
         guard let abilityUsed = entity.abilities[exists: abilityIndex-1] else {
-            say("\(Utils.Strings.error.rawValue): Não foi possível achar essa habilidade", color: .red)
+            say("\(Utils.Strings.error): Não foi possível achar essa habilidade", color: .red)
             return
         }
         
@@ -33,6 +33,10 @@ extension Message {
         }
         
         entity.abilities[abilityIndex-1].pp(abilityUsed.pp - 1)
+        
+        if entity.name == target.name {
+            target.abilities[abilityIndex-1].pp(abilityUsed.pp - 1)
+        }
         
         // MARK: - CHECKS DISABLED
         
@@ -45,13 +49,15 @@ extension Message {
         
         if abilityUsed.attributes.contains(.area) {
             say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
-            for currentCharacter in CHARACTERS.dropLast() {
-                _ = doDamage(striker: BOSS,
-                             targetName: currentCharacter.name,
-                             basePower: abilityUsed.power,
-                             isExa: !abilityUsed.attributes.contains(.physical),
-                             isCrit: abilityUsed.attributes.contains(.critical),
-                             isCombo: abilityUsed.attributes.contains(.combo))
+            for currentCharacter in CHARACTERS.players {
+                let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId,
+                                                            targetId: currentCharacter.name,
+                                                            basePower: abilityUsed.power,
+                                                            isExa: !abilityUsed.attributes.contains(.physical),
+                                                            isCrit: abilityUsed.attributes.contains(.critical),
+                                                            isCombo: abilityUsed.attributes.contains(.combo))
+                entity.subHp(entityDamage)
+                target.subHp(targetDamage)
             }
             return
         }
@@ -64,9 +70,18 @@ extension Message {
             } else {
                 let randomValue = Int.random(in: 1...(target.hp/2))
                 print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
-                heal(entityId: targetId, with: randomValue + abilityUsed.power)
+                let newHp = heal(entityId: targetId, with: randomValue + abilityUsed.power)
+                target.currentHp(newHp)
             }
-            return
+        }
+        
+        // MARK: - REVIVE
+        
+        if abilityUsed.attributes.contains(.revive) {
+            let randomValue = Int.random(in: 1...(target.hp/2))
+            print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
+            let newHp = heal(entityId: targetId, with: randomValue + abilityUsed.power)
+            target.currentHp(newHp)
         }
         
         // MARK: - BUFF ATK
@@ -171,6 +186,13 @@ extension Message {
             say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está imune ao próximo golpe!", color: .blue)
         }
         
+        // MARK: - COUNTER
+        
+        if abilityUsed.attributes.contains(.counter) {
+            target.countering(true)
+            say("\(entity.name) usou \(abilityUsed.name) e está pronto para revidar o próximo golpe", color: .blue)
+        }
+        
         // MARK: - DISABLED
         
         if abilityUsed.attributes.contains(.disable) {
@@ -180,23 +202,23 @@ extension Message {
         
         // MARK: - DAMAGE
         
-        // UpdateEntities antes do damage pra chegar a dar o dano sem sobrescrever os buffs/nerfs
-        updateEntities(entity, target)
-        
         if abilityUsed.attributes.contains(where: { $0.shouldDoDamage }) || abilityUsed.attributes.isEmpty {
             say("\(entity.name) usou \(abilityUsed.name)", color: .yellow)
-            let damage = doDamage(striker: entity,
-                                  targetName: targetId,
-                                  basePower: abilityUsed.power,
-                                  isExa: !abilityUsed.attributes.contains(.physical),
-                                  isCrit: abilityUsed.attributes.contains(.critical),
-                                  isCombo: abilityUsed.attributes.contains(.combo))
+            let (entityDamage, targetDamage) = doDamage(entityId: entityId,
+                                                        targetId: targetId,
+                                                        basePower: abilityUsed.power,
+                                                        isExa: !abilityUsed.attributes.contains(.physical),
+                                                        isCrit: abilityUsed.attributes.contains(.critical),
+                                                        isCombo: abilityUsed.attributes.contains(.combo))
+            entity.subHp(entityDamage)
+            target.subHp(targetDamage)
             
             // MARK: - DRAIN
+            
             if abilityUsed.attributes.contains(.drain) {
+                let newHp = heal(entityId: entityId, with: targetDamage/2)
+                entity.currentHp(newHp)
                 say("\(entity.name) usou \(abilityUsed.name) para drenar \(target.name)!", color: .yellow)
-                heal(entityId: entity.name, with: damage/2)
-                updateEntity(entity)
             }
         }
         
@@ -205,7 +227,8 @@ extension Message {
         if abilityUsed.attributes.contains(.suicide) {
             entity.currentHp(0)
             say("\(entity.name) usou \(abilityUsed.name) e agora ele está morto! :(", color: .red)
-            updateEntity(entity)
         }
+
+        updateEntity(entity, target)
     }
 }
