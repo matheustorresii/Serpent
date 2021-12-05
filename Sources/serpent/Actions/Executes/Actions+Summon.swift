@@ -26,7 +26,7 @@ extension Message {
             if target.currentHp <= 0 {
                 say("\(target.name) está derrotado, ele precisa ser revivido antes.", color: .red)
             } else {
-                let newHp = heal(entityId: target.name, with: .random(in: 1...target.hp/3))
+                let newHp = heal(entityId: target.name, with: .random(in: target.hp/4...target.hp/2))
                 target.currentHp(newHp)
                 say("\(target.name) foi curado por \(summon.name)!", color: .green)
             }

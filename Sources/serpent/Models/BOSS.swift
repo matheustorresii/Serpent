@@ -7,6 +7,30 @@
 
 import Foundation
 
+enum Bosses: String {
+    case okot
+    case lohan
+    case oleg
+    case froycon
+    case ikelos
+    case yeti
+    case anubis
+    case gryphon
+    
+    var entity: Entity {
+        switch self {
+        case .okot:    return OKOT
+        case .lohan:   return LOHAN
+        case .oleg:    return OLEG
+        case .froycon: return FROYCON
+        case .ikelos:  return IKELOS
+        case .yeti:    return YETI
+        case .anubis:  return ANUBIS
+        case .gryphon: return GRYPHON
+        }
+    }
+}
+
 fileprivate let OKOT = Entity(name: "Okot (Drayden)",
                               hp: 550,
                               atk: 20,
@@ -160,4 +184,4 @@ fileprivate let GRYPHON = Entity(name: "Grifo",
                                           pp: 10,
                                           attributes: [.area])
                                  ])
-var BOSS = GRYPHON
+var BOSS = Bosses.gryphon.entity

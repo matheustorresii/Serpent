@@ -43,7 +43,7 @@ enum Character: String {
         switch self {
             case .ayie:     return 0
             case .maha:     return 1
-            default:        return 1
+            default:        return 2
         }
     }
     

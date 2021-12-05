@@ -23,6 +23,16 @@ extension Message {
         summon(from: BOSS, allies: false)
     }
     
+    func setBoss() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let bossName = values.last else { return }
+        guard let newBoss = Bosses(rawValue: "\(bossName)") else {
+            return say("\(Utils.Strings.error): Este BOSS não está registrado!", color: .red)
+        }
+        say("\(BOSS.name) foi substituído por \(newBoss.entity.name)!", color: .yellow)
+        BOSS = newBoss.entity
+    }
+    
     fileprivate func bossAttack(targetId: String) {
         var entity = getEntity(with: Utils.Strings.bossId)
         var target = getEntity(with: targetId)

@@ -32,6 +32,7 @@ enum Actions: String {
     case random
     case reset
     case rest
+    case setBoss
     case summon
     case unrest
     
@@ -60,6 +61,7 @@ enum Actions: String {
         case .random:     return { $0.random() }
         case .reset:      return { $0.reset() }
         case .rest:       return { $0.rest() }
+        case .setBoss:    return { $0.setBoss() }
         case .summon:     return { $0.summon() }
         case .unrest:     return { $0.unrest() }
         }
