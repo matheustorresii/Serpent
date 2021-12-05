@@ -18,6 +18,19 @@ extension Message {
                itemIndex: itemIndex)
     }
     
+    func removeItem() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let entityId = values.first, let itemId = values.last, let itemIndex = Int(itemId) else { return }
+        let index = itemIndex-1
+        var entity = getEntity(with: "\(entityId)")
+        guard let _ = entity.items[exists: index] else {
+            return say("\(Utils.Strings.error): Este player não possui esse item", color: .red)
+        }
+        say("O item \(entity.items[index].name) foi retirado de \(entity.name)!", color: .yellow)
+        entity.items.remove(at: index)
+        updateEntity(entity)
+    }
+    
     private func doItem(entityId: String, targetId: String, itemIndex: Int) {
         var entity = getEntity(with: "\(entityId)")
         var target = getEntity(with: "\(targetId)")
