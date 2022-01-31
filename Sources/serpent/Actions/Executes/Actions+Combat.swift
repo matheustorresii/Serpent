@@ -18,14 +18,10 @@ extension Message {
         let entity = getEntity(with: entityId)
         var target = getEntity(with: targetId)
         
-        guard !target.protected else {
-            target.protected(false)
+        if target.protection == .protect {
             say("\(target.name) estava protegido e não tomou dano!", color: .yellow)
-            updateEntity(target)
             return (0, 0)
         }
-        
-        let multiplier = isCrit ? 2 : 1
         
         var damage = Utils.damage(atk: getAtk(for: entity, isExa: isExa),
                                   def: getDef(for: target), basePower: basePower)
@@ -36,7 +32,7 @@ extension Message {
             damage += oppositeDamage
         }
         
-        let fullDamage = damage * multiplier
+        let fullDamage = damage * (isCrit ? 2 : 1)
         
         target.currentHp(target.currentHp - fullDamage)
         
@@ -44,17 +40,13 @@ extension Message {
         
         say("\(entity.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
         
-        if target.currentHp < 1 {
-            target.currentHp(0)
-            say("\(target.name) foi derrotado", color: .red)
-        }
+        let entityDamage: Int = target.protection == .counter ? fullDamage/2 : .zero
         
-        let entityDamage: Int = target.countering ? fullDamage/2 : .zero
-        
-        if target.countering {
+        if target.protection == .counter {
             say("\(target.name) estava pronto para revidar e deu \(entityDamage) de dano em \(entity.name)", color: .blue)
         }
         
+        defeated(entity, target)
         return (entityDamage, fullDamage)
     }
     
@@ -64,5 +56,11 @@ extension Message {
     
     fileprivate func getDef(for entity: Entity) -> Int {
         return Int(Double(entity.def) * entity.defStatus.multiplier)
+    }
+    
+    fileprivate func defeated(_ entities: Entity...) {
+        entities.filter { $0.currentHp < 1 }.forEach {
+            say("\($0.name) foi derrotado!", color: .red)
+        }
     }
 }

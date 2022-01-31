@@ -49,13 +49,14 @@ extension Message {
         
         if abilityUsed.attributes.contains(.area) {
             say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
-            for currentCharacter in CHARACTERS.players {
+            CHARACTERS.players.forEach {
                 let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId,
-                                                            targetId: currentCharacter.name,
+                                                            targetId: $0.name,
                                                             basePower: abilityUsed.power,
                                                             isExa: !abilityUsed.attributes.contains(.physical),
                                                             isCrit: abilityUsed.attributes.contains(.critical),
                                                             isCombo: abilityUsed.attributes.contains(.combo))
+                target.protection(.none)
                 entity.subHp(entityDamage)
                 target.subHp(targetDamage)
             }
@@ -75,6 +76,12 @@ extension Message {
             }
         }
         
+        if abilityUsed.attributes.contains(.endeavor) {
+            let entityPercentage = entity.currentHp / entity.hp
+            target.currentHp(target.hp * entityPercentage)
+            say("\(entity.name) usou \(abilityUsed.name) em \(target.name) e suas vidas se igualaram!", color: .green)
+        }
+        
         // MARK: - REVIVE
         
         if abilityUsed.attributes.contains(.revive) {
@@ -82,6 +89,12 @@ extension Message {
             print("heal: \(randomValue) bp: \(abilityUsed.power) total: \(randomValue + abilityUsed.power)")
             let newHp = heal(entityId: targetId, with: randomValue + abilityUsed.power)
             target.currentHp(newHp)
+        }
+        
+        // MARK: - SPEED
+        
+        if abilityUsed.attributes.contains(.speed) {
+            say("\(entity.name) usou \(abilityUsed.name) e a velocidade de \(target.name) aumentou por esse turno!", color: .cyan)
         }
         
         // MARK: - BUFF ATK
@@ -176,20 +189,21 @@ extension Message {
         if abilityUsed.attributes.contains(.tripleNerfDef) {
             target.defStatus(.reduce)
             target.defStatus(.reduce)
+            target.defStatus(.reduce)
             say("\(entity.name) usou \(abilityUsed.name) e a defesa de \(target.name) abaixou extremamente!", color: .orange)
         }
         
         // MARK: - PROTECTED
         
         if abilityUsed.attributes.contains(.protect) {
-            target.protected(true)
+            target.protection(.protect)
             say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está imune ao próximo golpe!", color: .blue)
         }
         
         // MARK: - COUNTER
         
         if abilityUsed.attributes.contains(.counter) {
-            target.countering(true)
+            target.protection(.counter)
             say("\(entity.name) usou \(abilityUsed.name) e está pronto para revidar o próximo golpe", color: .blue)
         }
         
@@ -210,6 +224,7 @@ extension Message {
                                                         isExa: !abilityUsed.attributes.contains(.physical),
                                                         isCrit: abilityUsed.attributes.contains(.critical),
                                                         isCombo: abilityUsed.attributes.contains(.combo))
+            target.protection(.none)
             entity.subHp(entityDamage)
             target.subHp(targetDamage)
             
@@ -228,7 +243,7 @@ extension Message {
             entity.currentHp(0)
             say("\(entity.name) usou \(abilityUsed.name) e agora ele está morto! :(", color: .red)
         }
-
+        
         updateEntity(entity, target)
     }
 }

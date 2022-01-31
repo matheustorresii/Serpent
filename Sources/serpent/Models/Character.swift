@@ -21,14 +21,16 @@ import Foundation
 // 243371249215078400 = Savio
 
 enum Character: String {
+    case anya = "204663989395783680"
     case ayie = "243371249215078400"
     case maha = "419197752816173057"
+    case nock = "892539055953305630"
     
     // MASTERS
     case master = "748944007366705223"
     case substitute = "316249647137947648"
     
-    static let playerCount: Int = 2
+    static let playerCount: Int = 4
     
     var entity: Entity {
         return CHARACTERS[exists: index] ?? .init(name: Utils.Strings.error,
@@ -41,25 +43,31 @@ enum Character: String {
     
     var index: Int {
         switch self {
-            case .ayie:     return 0
-            case .maha:     return 1
-            default:        return 2
+        case .anya: return 0
+        case .ayie: return 1
+        case .maha: return 2
+        case .nock: return 3
+        default:    return 4
         }
     }
     
     static func entityWith(name: String) -> Entity {
         switch name.lowercased() {
-            case "ayie":    return Character.ayie.entity
-            case "maha":    return Character.maha.entity
-            default:        return Character.master.entity
+        case "anya": return Character.anya.entity
+        case "ayie": return Character.ayie.entity
+        case "maha": return Character.maha.entity
+        case "nock": return Character.nock.entity
+        default:     return Character.master.entity
         }
     }
     
     static func indexWith(name: String) -> Int {
         switch name.lowercased() {
-            case "ayie":    return Character.ayie.index
-            case "maha":    return Character.maha.index
-            default:        return Character.master.index
+        case "anya": return Character.anya.index
+        case "ayie": return Character.ayie.index
+        case "maha": return Character.maha.index
+        case "nock": return Character.nock.index
+        default:     return Character.master.index
         }
     }
 }

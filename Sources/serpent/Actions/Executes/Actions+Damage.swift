@@ -11,12 +11,13 @@ extension Message {
     func damage() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first, let targetId = values.last else { return }
-
+        
         var entity = getEntity(with: "\(entityId)")
         var target = getEntity(with: "\(targetId)")
         
         let (entityDamage, targetDamage) = doDamage(entityId: "\(entityId)", targetId: "\(targetId)")
         
+        target.protection(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         

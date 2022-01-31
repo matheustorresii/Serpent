@@ -19,10 +19,6 @@ extension Message {
         }
     }
     
-    func bossSummon() {
-        summon(from: BOSS, allies: false)
-    }
-    
     func setBoss() {
         let values = content.split(separator: " ").dropFirst()
         guard let bossName = values.last else { return }
@@ -39,6 +35,7 @@ extension Message {
         
         let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId, targetId: targetId)
         
+        target.protection(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         

@@ -16,17 +16,19 @@ enum Bosses: String {
     case yeti
     case anubis
     case gryphon
+    case urcaguary
     
     var entity: Entity {
         switch self {
-        case .okot:    return OKOT
-        case .lohan:   return LOHAN
-        case .oleg:    return OLEG
-        case .froycon: return FROYCON
-        case .ikelos:  return IKELOS
-        case .yeti:    return YETI
-        case .anubis:  return ANUBIS
-        case .gryphon: return GRYPHON
+        case .okot:      return OKOT
+        case .lohan:     return LOHAN
+        case .oleg:      return OLEG
+        case .froycon:   return FROYCON
+        case .ikelos:    return IKELOS
+        case .yeti:      return YETI
+        case .anubis:    return ANUBIS
+        case .gryphon:   return GRYPHON
+        case .urcaguary: return URCAGUARY
         }
     }
 }
@@ -184,4 +186,14 @@ fileprivate let GRYPHON = Entity(name: "Grifo",
                                           pp: 10,
                                           attributes: [.area])
                                  ])
-var BOSS = Bosses.gryphon.entity
+
+fileprivate let URCAGUARY = Entity(name: "Urcaguary",
+                                   hp: 500,
+                                   atk: 30,
+                                   exa: 30,
+                                   def: 30,
+                                   spd: 50,
+                                   money: 1800,
+                                   abilities: [])
+
+var BOSS = Bosses.urcaguary.entity

@@ -26,6 +26,9 @@ extension Message {
         let entityName = entity.name
         if entity.name == BOSS.name {
             BOSS = entity
+            if entity.currentHp < 1 {
+                loot(entity: entity)
+            }
         } else if CHARACTERS.contains(where: { $0.name == entity.name }) {
             let index = Character.indexWith(name: entityName)
             guard CHARACTERS[exists: index] != nil else { return }
@@ -36,10 +39,14 @@ extension Message {
             ENEMIES[index] = entity
             if entity.currentHp < 1 {
                 ENEMIES.remove(at: index)
-                moneyToPlayers(entity.money)
-                itemsToPlayers(entity.items)
+                loot(entity: entity)
             }
         }
+    }
+    
+    fileprivate func loot(entity: Entity) {
+        moneyToPlayers(entity.money)
+        itemsToPlayers(entity.items)
     }
     
     func enemyIndexWith(name: String) -> Int? {

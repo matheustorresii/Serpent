@@ -39,12 +39,30 @@ extension Message {
         updateEntity(entity)
     }
     
+    func counter() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let entityId = values.first else { return }
+        var entity = getEntity(with: "\(entityId)")
+        entity.protection(.counter)
+        say("\(entity.name) está pronto para revidar!", color: .blue)
+        updateEntity(entity)
+    }
+    
     func protect() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.protected(true)
+        entity.protection(.protect)
         say("\(entity.name) está protegido!", color: .blue)
+        updateEntity(entity)
+    }
+    
+    func unprotect() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let entityId = values.first else { return }
+        var entity = getEntity(with: "\(entityId)")
+        entity.protection(.none)
+        say("\(entity.name) não está mais protegido!", color: .orange)
         updateEntity(entity)
     }
     
@@ -54,6 +72,15 @@ extension Message {
         var entity = getEntity(with: "\(entityId)")
         entity.disabled(true)
         say("\(entity.name) está desabilitado!", color: .orange)
+        updateEntity(entity)
+    }
+    
+    func undisable() {
+        let values = content.split(separator: " ").dropFirst()
+        guard let entityId = values.first else { return }
+        var entity = getEntity(with: "\(entityId)")
+        entity.disabled(false)
+        say("\(entity.name) não está mais desabilitado!", color: .blue)
         updateEntity(entity)
     }
 }

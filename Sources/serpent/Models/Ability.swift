@@ -20,6 +20,7 @@ struct Ability {
 
 enum Attributes {
     // STATUS
+    case speed
     case buffAtk
     case buffDef
     case nerfAtk
@@ -46,6 +47,7 @@ enum Attributes {
     case heal
     case revive
     case drain
+    case endeavor
     
     // BOSS
     case area
@@ -56,7 +58,8 @@ enum Attributes {
     
     var shouldDoDamage: Bool {
         switch self {
-        case .buffAtk,
+        case .speed,
+                .buffAtk,
                 .buffDef,
                 .nerfAtk,
                 .nerfDef,
@@ -64,6 +67,7 @@ enum Attributes {
                 .counter,
                 .heal,
                 .revive,
+                .endeavor,
                 .doubleBuffAtk,
                 .doubleBuffDef,
                 .doubleNerfAtk,

@@ -14,37 +14,58 @@ extension Message {
         summon(from: character.entity, allies: true)
     }
     
-    func summon(from entity: Entity, allies: Bool) {
+    func bossSummon() {
+        summon(from: BOSS, allies: false)
+    }
+    
+    private func summon(from entity: Entity, allies: Bool) {
         guard let summon = entity.summon else { return say("\(Utils.Strings.error): \(entity.name) não possui um Summon", color: .red) }
-        guard var target = allies ? CHARACTERS.players.randomElement() : BOSS else { return }
+        guard let target = allies ? CHARACTERS.players.randomElement() : BOSS else { return }
+        summonNamed(summon.name, didUse: summon.effect, targetEntity: target)
+    }
+    
+    private func summonNamed(_ name: String, didUse effect: Summon.Effect, targetEntity: Entity) {
+        var target = targetEntity
         
-        if summon.effect == .speed {
-            say("A velocidade de \(target.name) foi aumentada por \(summon.name)!", color: .green)
+        if effect == .speed {
+            say("A velocidade de \(target.name) foi aumentada por \(name)!", color: .green)
         }
         
-        if summon.effect == .heal {
+        if effect == .heal {
             if target.currentHp <= 0 {
                 say("\(target.name) está derrotado, ele precisa ser revivido antes.", color: .red)
             } else {
                 let newHp = heal(entityId: target.name, with: .random(in: target.hp/4...target.hp/2))
                 target.currentHp(newHp)
-                say("\(target.name) foi curado por \(summon.name)!", color: .green)
+                say("\(target.name) foi curado por \(name)!", color: .green)
             }
         }
         
-        if summon.effect == .buffAtk {
+        if effect == .buffAtk {
             target.atkStatus(.improve)
-            say("O ataque de \(target.name) foi aumentado por \(summon.name)!", color: .green)
+            say("O ataque de \(target.name) foi aumentado por \(name)!", color: .green)
         }
         
-        if summon.effect == .buffDef {
+        if effect == .buffDef {
             target.defStatus(.improve)
-            say("A defesa de \(target.name) foi aumentado por \(summon.name)!", color: .green)
+            say("A defesa de \(target.name) foi aumentado por \(name)!", color: .green)
         }
         
-        if summon.effect == .protect {
-            target.protected(true)
-            say("\(target.name) foi protegido por \(summon.name)!", color: .green)
+        if effect == .protect {
+            target.protection(.protect)
+            say("\(target.name) foi protegido por \(name)!", color: .green)
+        }
+        
+        if effect == .counter {
+            target.protection(.counter)
+            say("\(name) deixou \(target.name) pronto para revidar o próximo golpe!", color: .green)
+        }
+        
+        if effect == .random {
+            let randomable: [Summon.Effect] = [.buffAtk, .buffDef]
+            let randomEffect = randomable.randomElement() ?? .buffAtk
+            summonNamed(name, didUse: randomEffect, targetEntity: targetEntity)
+            return
         }
         
         updateEntity(target)

@@ -16,6 +16,8 @@ struct Summon {
         case buffAtk
         case buffDef
         case protect
+        case counter
+        case random
         case speed
     }
 }
@@ -26,4 +28,6 @@ extension Summon {
     static let ULLR: Summon = .init(name: "Ullr", effect: .speed)
     static let IKELOS: Summon = .init(name: "Ikelos", effect: .buffDef)
     static let QUETZALCOATL: Summon = .init(name: "Quetzalcoatl", effect: .speed)
+    static let NEMESIS: Summon = .init(name: "Nêmesis", effect: .counter)
+    static let MOMO: Summon = .init(name: "Momo", effect: .random)
 }

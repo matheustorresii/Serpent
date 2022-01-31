@@ -22,6 +22,7 @@ extension Message {
                                                     targetId: "\(targetId)",
                                                     basePower: 0,
                                                     isExa: isExtension)
+        target.protection(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         updateEntity(entity, target)

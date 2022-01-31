@@ -20,6 +20,7 @@ enum Actions: String {
     case boss
     case bossSummon
     case check
+    case counter
     case damage
     case def
     case disable
@@ -50,6 +51,7 @@ enum Actions: String {
         case .boss:       return { $0.boss() }
         case .bossSummon: return { $0.bossSummon() }
         case .check:      return { $0.check() }
+        case .counter:    return { $0.counter() }
         case .damage:     return { $0.damage() }
         case .def:        return { $0.def() }
         case .disable:    return { $0.disable() }
