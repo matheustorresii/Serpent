@@ -15,7 +15,8 @@ extension Message {
     }
     
     func bossSummon() {
-        summon(from: BOSS, allies: false)
+        guard let boss = BOSS else { return say("\(Utils.Strings.error): Boss não existente", color: .red) }
+        summon(from: boss, allies: false)
     }
     
     private func summon(from entity: Entity, allies: Bool) {
@@ -52,12 +53,12 @@ extension Message {
         }
         
         if effect == .protect {
-            target.protection(.protect)
+            target.buff(.protect)
             say("\(target.name) foi protegido por \(name)!", color: .green)
         }
         
         if effect == .counter {
-            target.protection(.counter)
+            target.buff(.counter)
             say("\(name) deixou \(target.name) pronto para revidar o próximo golpe!", color: .green)
         }
         

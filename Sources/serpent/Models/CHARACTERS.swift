@@ -100,7 +100,7 @@ var CHARACTERS: [Entity] = [
           exa: 1,
           def: 59,
           spd: 150,
-          summon: .MOMO,
+          summon: nil,
           money: 1900,
           item: [],
           abilities: [

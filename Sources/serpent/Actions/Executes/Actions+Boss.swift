@@ -25,7 +25,7 @@ extension Message {
         guard let newBoss = Bosses(rawValue: "\(bossName)") else {
             return say("\(Utils.Strings.error): Este BOSS não está registrado!", color: .red)
         }
-        say("\(BOSS.name) foi substituído por \(newBoss.entity.name)!", color: .yellow)
+        say("\(BOSS?.name ?? "null") foi substituído por \(newBoss.entity?.name ?? "null")!", color: .yellow)
         BOSS = newBoss.entity
     }
     
@@ -35,7 +35,8 @@ extension Message {
         
         let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId, targetId: targetId)
         
-        target.protection(.none)
+        entity.nerf(.none)
+        target.buff(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         

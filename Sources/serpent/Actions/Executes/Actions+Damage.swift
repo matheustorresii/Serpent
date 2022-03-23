@@ -17,7 +17,8 @@ extension Message {
         
         let (entityDamage, targetDamage) = doDamage(entityId: "\(entityId)", targetId: "\(targetId)")
         
-        target.protection(.none)
+        entity.nerf(.none)
+        target.buff(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         

@@ -8,6 +8,9 @@
 import Foundation
 
 struct Entity {
+    
+    // MARK: - PROPERTIES
+    
     let name: String
     var currentHp: Int
     
@@ -26,9 +29,10 @@ struct Entity {
     var atkStatus: Status
     var defStatus: Status
     
-    var protection: Protection
-
-    var disabled: Bool
+    var buff: Buff
+    var nerf: Nerf
+    
+    // MARK: - INITIALIZERS
     
     init(name: String,
          hp: Int,
@@ -58,15 +62,18 @@ struct Entity {
         
         self.atkStatus = .normal
         self.defStatus = .normal
-        self.protection = .none
-        self.disabled = false
+        
+        self.buff = .none
+        self.nerf = .none
     }
+    
+    // MARK: - METHODS
     
     mutating func reset() {
         atkStatus = .normal
         defStatus = .normal
-        protection = .none
-        disabled = false
+        buff = .none
+        nerf = .none
     }
     
     mutating func addHp(_ value: Int) {
@@ -93,11 +100,11 @@ struct Entity {
         defStatus = direction == .improve ? defStatus.next : defStatus.previous
     }
     
-    mutating func protection(_ state: Protection) {
-        protection = state
+    mutating func buff(_ state: Buff) {
+        buff = state
     }
     
-    mutating func disabled(_ state: Bool) {
-        disabled = state
+    mutating func nerf(_ state: Nerf) {
+        nerf = state
     }
 }

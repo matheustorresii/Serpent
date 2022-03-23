@@ -99,7 +99,7 @@ extension Message {
         // MARK: - PROTECT
         
         if item.effect == .protect {
-            target.protection(.protect)
+            target.buff(.protect)
             say("\(entity.name) usou \(item.name) e protegeu \(target.name)!", color: .green)
         }
 

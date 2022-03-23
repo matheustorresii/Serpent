@@ -43,7 +43,7 @@ extension Message {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.protection(.counter)
+        entity.buff(.counter)
         say("\(entity.name) está pronto para revidar!", color: .blue)
         updateEntity(entity)
     }
@@ -52,16 +52,16 @@ extension Message {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.protection(.protect)
+        entity.buff(.protect)
         say("\(entity.name) está protegido!", color: .blue)
         updateEntity(entity)
     }
     
-    func unprotect() {
+    func unbuff() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.protection(.none)
+        entity.buff(.none)
         say("\(entity.name) não está mais protegido!", color: .orange)
         updateEntity(entity)
     }
@@ -70,16 +70,16 @@ extension Message {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.disabled(true)
+        entity.nerf(.disabled)
         say("\(entity.name) está desabilitado!", color: .orange)
         updateEntity(entity)
     }
     
-    func undisable() {
+    func unnerf() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.disabled(false)
+        entity.nerf(.none)
         say("\(entity.name) não está mais desabilitado!", color: .blue)
         updateEntity(entity)
     }

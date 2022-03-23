@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Protection {
+enum Buff {
     case none
     case protect
     case counter

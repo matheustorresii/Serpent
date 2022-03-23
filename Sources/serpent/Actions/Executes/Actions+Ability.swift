@@ -40,7 +40,7 @@ extension Message {
         
         // MARK: - CHECKS DISABLED
         
-        if entity.disabled {
+        if entity.nerf == .disabled {
             say("Você não pode usar suas habilidades enquanto está desabilitado!", color: .yellow)
             return
         }
@@ -48,7 +48,7 @@ extension Message {
         // MARK: - AREA
         
         if abilityUsed.attributes.contains(.area) {
-            say("\(BOSS.name) usou \(abilityUsed.name)", color: .yellow)
+            say("\(entity.name) usou \(abilityUsed.name)", color: .yellow)
             CHARACTERS.players.forEach {
                 let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId,
                                                             targetId: $0.name,
@@ -56,7 +56,8 @@ extension Message {
                                                             isExa: !abilityUsed.attributes.contains(.physical),
                                                             isCrit: abilityUsed.attributes.contains(.critical),
                                                             isCombo: abilityUsed.attributes.contains(.combo))
-                target.protection(.none)
+                entity.nerf(.none)
+                target.buff(.none)
                 entity.subHp(entityDamage)
                 target.subHp(targetDamage)
             }
@@ -196,21 +197,21 @@ extension Message {
         // MARK: - PROTECTED
         
         if abilityUsed.attributes.contains(.protect) {
-            target.protection(.protect)
+            target.buff(.protect)
             say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está imune ao próximo golpe!", color: .blue)
         }
         
         // MARK: - COUNTER
         
         if abilityUsed.attributes.contains(.counter) {
-            target.protection(.counter)
+            target.buff(.counter)
             say("\(entity.name) usou \(abilityUsed.name) e está pronto para revidar o próximo golpe", color: .blue)
         }
         
         // MARK: - DISABLED
         
         if abilityUsed.attributes.contains(.disable) {
-            target.disabled(true)
+            target.nerf(.disabled)
             say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está desabilitado e não poderá usar suas habilidades!", color: .orange)
         }
         
@@ -224,7 +225,8 @@ extension Message {
                                                         isExa: !abilityUsed.attributes.contains(.physical),
                                                         isCrit: abilityUsed.attributes.contains(.critical),
                                                         isCombo: abilityUsed.attributes.contains(.combo))
-            target.protection(.none)
+            entity.nerf(.none)
+            target.buff(.none)
             entity.subHp(entityDamage)
             target.subHp(targetDamage)
             

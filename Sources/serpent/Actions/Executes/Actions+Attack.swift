@@ -14,15 +14,16 @@ extension Message {
         guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
         var entity = character.entity
         var target = getEntity(with: "\(targetId)")
-        if character.entity.disabled {
-            entity.disabled(false)
+        if character.entity.nerf == .disabled {
+            entity.nerf(.none)
             say("\(character.entity.name) não está mais desabilitado!", color: .yellow)
         }
         let (entityDamage, targetDamage) = doDamage(entityId: character.entity.name,
                                                     targetId: "\(targetId)",
                                                     basePower: 0,
                                                     isExa: isExtension)
-        target.protection(.none)
+        entity.nerf(.none)
+        target.buff(.none)
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         updateEntity(entity, target)

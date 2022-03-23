@@ -18,7 +18,7 @@ extension Message {
         let entity = getEntity(with: entityId)
         var target = getEntity(with: targetId)
         
-        if target.protection == .protect {
+        if target.buff == .protect {
             say("\(target.name) estava protegido e não tomou dano!", color: .yellow)
             return (0, 0)
         }
@@ -40,9 +40,9 @@ extension Message {
         
         say("\(entity.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
         
-        let entityDamage: Int = target.protection == .counter ? fullDamage/2 : .zero
+        let entityDamage: Int = target.buff == .counter ? fullDamage/2 : .zero
         
-        if target.protection == .counter {
+        if target.buff == .counter {
             say("\(target.name) estava pronto para revidar e deu \(entityDamage) de dano em \(entity.name)", color: .blue)
         }
         

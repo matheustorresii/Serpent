@@ -9,7 +9,7 @@ import Sword
 
 extension Message {
     func reset() {
-        CHARACTERS.forEach {
+        CHARACTERS.players.forEach {
             var entity = getEntity(with: $0.name)
             entity.reset()
             updateEntity(entity)

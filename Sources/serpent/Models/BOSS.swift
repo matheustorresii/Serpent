@@ -7,7 +7,10 @@
 
 import Foundation
 
+var BOSS: Entity?
+
 enum Bosses: String {
+    case null
     case okot
     case lohan
     case oleg
@@ -18,8 +21,9 @@ enum Bosses: String {
     case gryphon
     case urcaguary
     
-    var entity: Entity {
+    var entity: Entity? {
         switch self {
+        case .null:      return nil
         case .okot:      return OKOT
         case .lohan:     return LOHAN
         case .oleg:      return OLEG
@@ -195,5 +199,3 @@ fileprivate let URCAGUARY = Entity(name: "Urcaguary",
                                    spd: 50,
                                    money: 1800,
                                    abilities: [])
-
-var BOSS = Bosses.urcaguary.entity

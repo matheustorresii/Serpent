@@ -15,6 +15,9 @@ extension Collection where Indices.Iterator.Element == Index {
 
 extension Array where Element == Entity {
     var players: [Entity] {
-        return CHARACTERS.count == Character.playerCount ? CHARACTERS : CHARACTERS.dropLast()
+        if let npc = NPC {
+            return CHARACTERS + [npc]
+        }
+        return CHARACTERS
     }
 }

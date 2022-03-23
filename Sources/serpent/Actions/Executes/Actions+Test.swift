@@ -10,6 +10,6 @@ import Sword
 
 extension Message {
     func test() {
-        say("♀︎", color: .cyan)
+        
     }
 }

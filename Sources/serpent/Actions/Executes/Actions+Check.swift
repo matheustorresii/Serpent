@@ -38,10 +38,12 @@ extension Message {
                 say(itemsMessage, color: .yellow)
             }
         }
-        if let description = entity.protection.description {
+        if let description = entity.buff.description {
             say("\(entity.name) está \(description)!", color: .blue)
         }
-        if entity.disabled  { say("\(entity.name) está desabilitado e não pode usar suas habilidades!", color: .orange) }
+        if let description = entity.nerf.description {
+            say("\(entity.name) está \(description)!", color: .orange)
+        }
         if let (description, direction) = entity.atkStatus.description {
             say("O ataque de \(entity.name) está \(description)!", color: direction == .improve ? .blue : .orange)
         }

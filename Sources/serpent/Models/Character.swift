@@ -30,15 +30,13 @@ enum Character: String {
     case master = "748944007366705223"
     case substitute = "316249647137947648"
     
-    static let playerCount: Int = 4
-    
     var entity: Entity {
-        return CHARACTERS[exists: index] ?? .init(name: Utils.Strings.error,
-                                                  hp: 1,
-                                                  atk: 1,
-                                                  exa: 1,
-                                                  def: 1,
-                                                  spd: 1)
+        return CHARACTERS.players[exists: index] ?? .init(name: Utils.Strings.error,
+                                                          hp: 1,
+                                                          atk: 1,
+                                                          exa: 1,
+                                                          def: 1,
+                                                          spd: 1)
     }
     
     var index: Int {

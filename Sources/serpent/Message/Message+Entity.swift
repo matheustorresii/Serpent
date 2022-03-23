@@ -9,8 +9,8 @@ import Sword
 
 extension Message {
     func getEntity(with id: String) -> Entity {
-        if id == "boss" {
-            return BOSS
+        if id == "boss", let boss = BOSS {
+            return boss
         } else if let index = Int(id), let enemy = ENEMIES[exists: index - 1] {
             return enemy
         } else {
@@ -24,11 +24,13 @@ extension Message {
     
     fileprivate func update(entity: Entity) {
         let entityName = entity.name
-        if entity.name == BOSS.name {
+        if entity.name == BOSS?.name {
             BOSS = entity
             if entity.currentHp < 1 {
                 loot(entity: entity)
             }
+        } else if entity.name == NPC?.name {
+            NPC = entity
         } else if CHARACTERS.contains(where: { $0.name == entity.name }) {
             let index = Character.indexWith(name: entityName)
             guard CHARACTERS[exists: index] != nil else { return }

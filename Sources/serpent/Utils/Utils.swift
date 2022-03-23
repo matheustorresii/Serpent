@@ -11,9 +11,24 @@ struct Utils {
     static func damage(atk: Int, def: Int, basePower: Int = 0) -> Int {
         let random = Int.random(in: 1...100)
         let damage = (atk * (random + basePower) - def) / 200
+        let multiplier = random >= 95 ? 2 : 1
         print("atk: \(atk) - def: \(def) - rdm: \(random) - dmg: \(damage)")
-        if damage < 1 { return 1 }
-        return random >= 95 ? damage * 2 : damage
+        return max(damage * multiplier, 1)
+    }
+    
+    static func emoji(for number: Int) -> String {
+        switch number {
+        case 1: return "1️⃣"
+        case 2: return "2️⃣"
+        case 3: return "3️⃣"
+        case 4: return "4️⃣"
+        case 5: return "5️⃣"
+        case 6: return "6️⃣"
+        case 7: return "7️⃣"
+        case 8: return "8️⃣"
+        case 9: return "9️⃣"
+        default:return "0️⃣"
+        }
     }
 }
 
