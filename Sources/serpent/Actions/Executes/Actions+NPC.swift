@@ -9,7 +9,7 @@ import Foundation
 import Sword
 
 extension Message {
-    func setNpc() {
+    func npc() {
         let values = content.split(separator: " ").dropFirst()
         guard let npcName = values.last else { return }
         guard let newNpc = Npcs(rawValue: "\(npcName)") else {

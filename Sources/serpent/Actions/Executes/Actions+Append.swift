@@ -8,11 +8,12 @@
 import Sword
 
 extension Message {
+    // name - hp - atk - def - spd - drop
     func append() {
         let values = content.split(separator: " ").dropFirst()
         print(values)
         // Exists index
-        guard let value0 = values[exists: 1],
+        guard let name = values[exists: 1],
               let value1 = values[exists: 2],
               let value2 = values[exists: 3],
               let value3 = values[exists: 4],
@@ -25,9 +26,8 @@ extension Message {
             say("\(Utils.Strings.error): Erro ao adicionar novo inimigo", color: .red)
             return
         }
-        let name = String(value0)
         let money = Int(values[exists: 6] ?? "0") ?? .zero
-        let enemy = Entity(name: name,
+        let enemy = Entity(name: "\(name)",
                            hp: hp,
                            atk: atk,
                            exa: 0,
@@ -51,6 +51,7 @@ extension Message {
     }
     
     func appendItem() {
+        // id - name - effect - size
         let values = content.split(separator: " ").dropFirst()
         guard let entityValue = values[exists: 1],
               let nameValue = values[exists: 2],

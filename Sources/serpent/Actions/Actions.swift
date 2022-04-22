@@ -17,7 +17,6 @@ enum Actions: String {
     case appendItem
     case atk
     case attack
-    case battle
     case boss
     case bossSummon
     case check
@@ -30,13 +29,15 @@ enum Actions: String {
     case heal
     case item
     case money
+    case npc
+    case party
+    case players
     case protect
     case random
     case reset
     case rest
     case removeItem
     case setBoss
-    case setNpc
     case summon
     case unrest
     
@@ -50,7 +51,6 @@ enum Actions: String {
         case .appendItem: return { $0.appendItem() }
         case .atk:        return { $0.atk() }
         case .attack:     return { $0.attack(isExtension: false) }
-        case .battle:     return { $0.battle() }
         case .boss:       return { $0.boss() }
         case .bossSummon: return { $0.bossSummon() }
         case .check:      return { $0.check() }
@@ -63,13 +63,15 @@ enum Actions: String {
         case .heal:       return { $0.heal() }
         case .item:       return { $0.item() }
         case .money:      return { $0.money() }
+        case .npc:        return { $0.npc() }
+        case .party:      return { $0.party() }
+        case .players:    return { $0.players() }
         case .protect:    return { $0.protect() }
         case .random:     return { $0.random() }
         case .reset:      return { $0.reset() }
         case .rest:       return { $0.rest() }
         case .removeItem: return { $0.removeItem() }
         case .setBoss:    return { $0.setBoss() }
-        case .setNpc:     return { $0.setNpc() }
         case .summon:     return { $0.summon() }
         case .unrest:     return { $0.unrest() }
         }

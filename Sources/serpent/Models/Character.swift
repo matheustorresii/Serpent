@@ -31,21 +31,21 @@ enum Character: String {
     case substitute = "316249647137947648"
     
     var entity: Entity {
-        return CHARACTERS.players[exists: index] ?? .init(name: Utils.Strings.error,
-                                                          hp: 1,
-                                                          atk: 1,
-                                                          exa: 1,
-                                                          def: 1,
-                                                          spd: 1)
+        return CHARACTERS.players.first { $0.name == name } ?? .init(name: Utils.Strings.error,
+                                                                     hp: 1,
+                                                                     atk: 1,
+                                                                     exa: 1,
+                                                                     def: 1,
+                                                                     spd: 1)
     }
     
-    var index: Int {
+    var name: String {
         switch self {
-        case .anya: return 0
-        case .ayie: return 1
-        case .maha: return 2
-        case .nock: return 3
-        default:    return 4
+        case .anya: return ANYA.name
+        case .ayie: return AYIE.name
+        case .maha: return MAHA.name
+        case .nock: return NOCK.name
+        default:    return NPC?.name ?? ""
         }
     }
     
@@ -56,16 +56,6 @@ enum Character: String {
         case "maha": return Character.maha.entity
         case "nock": return Character.nock.entity
         default:     return Character.master.entity
-        }
-    }
-    
-    static func indexWith(name: String) -> Int {
-        switch name.lowercased() {
-        case "anya": return Character.anya.index
-        case "ayie": return Character.ayie.index
-        case "maha": return Character.maha.index
-        case "nock": return Character.nock.index
-        default:     return Character.master.index
         }
     }
 }

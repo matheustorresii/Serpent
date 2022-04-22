@@ -23,7 +23,6 @@ extension Message {
     }
     
     fileprivate func update(entity: Entity) {
-        let entityName = entity.name
         if entity.name == BOSS?.name {
             BOSS = entity
             if entity.currentHp < 1 {
@@ -32,11 +31,11 @@ extension Message {
         } else if entity.name == NPC?.name {
             NPC = entity
         } else if CHARACTERS.contains(where: { $0.name == entity.name }) {
-            let index = Character.indexWith(name: entityName)
-            guard CHARACTERS[exists: index] != nil else { return }
+            guard let index = index(from: CHARACTERS, with: entity.name),
+                  CHARACTERS[exists: index] != nil else { return }
             CHARACTERS[index] = entity
         } else if ENEMIES.contains(where: { $0.name == entity.name }) {
-            guard let index = enemyIndexWith(name: entity.name),
+            guard let index = index(from: ENEMIES, with: entity.name),
                   ENEMIES[exists: index] != nil else { return }
             ENEMIES[index] = entity
             if entity.currentHp < 1 {
@@ -51,8 +50,8 @@ extension Message {
         itemsToPlayers(entity.items)
     }
     
-    func enemyIndexWith(name: String) -> Int? {
-        guard let index = ENEMIES.firstIndex(where: { $0.name == name }) else {
+    fileprivate func index(from collection: [Entity], with name: String) -> Int? {
+        guard let index = collection.firstIndex(where: { $0.name == name }) else {
             say("\(Utils.Strings.error): Não foi possível achar o index de \(name)", color: .red)
             return nil
         }

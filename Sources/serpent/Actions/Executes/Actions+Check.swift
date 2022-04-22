@@ -8,6 +8,24 @@
 import Sword
 
 extension Message {
+    func enemies() {
+        if ENEMIES.isEmpty {
+            return say("Nenhum inimigo encontrado!", color: .yellow)
+        }
+        
+        let message = ENEMIES.enumerated().map{ "\($1.name) (\($0+1)) está com \($1.currentHp) de HP" }.joined(separator: "\n")
+        say(message, color: .yellow)
+    }
+    
+    func players() {
+        if CHARACTERS.players.isEmpty {
+            return say("Nenhum jogador encontrado!", color: .yellow)
+        }
+        
+        let message = CHARACTERS.players.map { "\($0.name) está com \($0.currentHp) de HP" }.joined(separator: "\n")
+        say(message, color: .yellow)
+    }
+    
     func check() {
         let values = content.split(separator: " ").dropFirst()
         if let lastValue = values.last {
