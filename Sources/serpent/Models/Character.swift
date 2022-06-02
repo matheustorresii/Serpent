@@ -24,7 +24,6 @@ enum Character: String {
     case anya = "204663989395783680"
     case ayie = "243371249215078400"
     case maha = "419197752816173057"
-    case nock = "892539055953305630"
     
     // MASTERS
     case master = "748944007366705223"
@@ -44,7 +43,6 @@ enum Character: String {
         case .anya: return ANYA.name
         case .ayie: return AYIE.name
         case .maha: return MAHA.name
-        case .nock: return NOCK.name
         default:    return NPC?.name ?? ""
         }
     }
@@ -54,7 +52,6 @@ enum Character: String {
         case "anya": return Character.anya.entity
         case "ayie": return Character.ayie.entity
         case "maha": return Character.maha.entity
-        case "nock": return Character.nock.entity
         default:     return Character.master.entity
         }
     }

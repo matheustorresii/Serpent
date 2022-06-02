@@ -10,8 +10,8 @@ import Foundation
 struct Utils {
     static func damage(atk: Int, def: Int, basePower: Int = 0) -> Int {
         let random = Int.random(in: 1...100)
-        let damage = (atk * (random + basePower) - def) / 200
-        let multiplier = random >= 95 ? 2 : 1
+        let damage = (atk * (random + (basePower * 10)) - def) / 200
+        let multiplier = random >= 90 ? 2 : 1
         print("atk: \(atk) - def: \(def) - rdm: \(random) - dmg: \(damage)")
         return max(damage * multiplier, 1)
     }

@@ -37,7 +37,7 @@ let AYIE: Entity = .init(name: "Ayie",
                          def: 55,
                          spd: 31,
                          summon: .EMERE,
-                         money: 3000,
+                         money: 0,
                          item: [],
                          abilities: [
                             .init(name: "Interdimensional",
@@ -89,42 +89,5 @@ let MAHA: Entity = .init(name: "Maha",
                                   attributes: [.physical, .critical])
                          ])
 
-var REBELS: [Entity] = [ANYA, AYIE, MAHA]
-
-// MARK: - KINGDOMS
-
-let NOCK: Entity =
-    .init(name: "Nock",
-          hp: 64,
-          atk: 1,
-          exa: 1,
-          def: 59,
-          spd: 150,
-          summon: nil,
-          money: 1900,
-          item: [],
-          abilities: [
-            .init(name: "Incentivo Reverso",
-                  power: 0,
-                  pp: 10,
-                  attributes: [.doubleBuffAtk]),
-            .init(name: "Crítica Construtiva",
-                  power: 0,
-                  pp: 10,
-                  attributes: [.doubleBuffDef]),
-            .init(name: "Pedala Robinho",
-                  power: 0,
-                  pp: 10,
-                  attributes: [.doubleNerfAtk]),
-            .init(name: "Tu é lerdo em",
-                  power: 0,
-                  pp: 10,
-                  attributes: [.speed])
-          ])
-
-var KINGDOMS: [Entity] = [NOCK]
-
-// MARK: - VALUES
-
-var CHARACTERS = [Entity]()
+var CHARACTERS: [Entity] = [ANYA, AYIE, MAHA]
 var ENEMIES = [Entity]()

@@ -23,6 +23,11 @@ extension Message {
             return (0, 0)
         }
         
+        if entity.nerf == .paralyzed, Int.random(in: 1...5) == 1 {
+            say("\(entity.name) está paralizado e não conseguiu atacar", color: .orange)
+            return (0, 0)
+        }
+        
         var damage = Utils.damage(atk: getAtk(for: entity, isExa: isExa),
                                   def: getDef(for: target), basePower: basePower)
         

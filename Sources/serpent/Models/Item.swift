@@ -15,14 +15,16 @@ struct Item {
     enum Effect: String {
         case heal
         case revive
+        case purify
         case buffAtk
         case buffDef
         case protect
         
         var description: String {
             switch self {
-            case .heal: return "cura"
-            case .revive: return "ressurreição"
+            case .heal:    return "cura"
+            case .revive:  return "ressurreição"
+            case .purify:  return "purificar"
             case .buffAtk: return "aumento de ataque"
             case .buffDef: return "aumento de defesa"
             case .protect: return "proteção"

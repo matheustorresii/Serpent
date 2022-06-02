@@ -10,13 +10,15 @@ import Foundation
 enum Nerf {
     case disabled
     case bleeding
+    case paralyzed
     case none
     
     var description: String? {
         switch self {
-        case .disabled: return "desabilitado"
-        case .bleeding: return "sangrando"
-        case .none:    return nil
+        case .disabled:  return "desabilitado"
+        case .bleeding:  return "sangrando"
+        case .paralyzed: return "paralisado"
+        case .none:      return nil
         }
     }
 }

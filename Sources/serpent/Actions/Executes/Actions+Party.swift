@@ -14,11 +14,12 @@ enum Party: String {
     case kingdoms
     
     var characters: [Entity] {
-        switch self {
-        case .null:     return []
-        case .rebels:   return REBELS
-        case .kingdoms: return KINGDOMS
-        }
+        return CHARACTERS
+//        switch self {
+//        case .null:     return []
+//        case .rebels:   return REBELS
+//        case .kingdoms: return KINGDOMS
+//        }
     }
 }
 

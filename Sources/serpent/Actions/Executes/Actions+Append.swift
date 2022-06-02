@@ -11,7 +11,6 @@ extension Message {
     // name - hp - atk - def - spd - drop
     func append() {
         let values = content.split(separator: " ").dropFirst()
-        print(values)
         // Exists index
         guard let name = values[exists: 1],
               let value1 = values[exists: 2],
@@ -23,8 +22,7 @@ extension Message {
               let atk = Int(value2),
               let def = Int(value3),
               let spd = Int(value4) else {
-            say("\(Utils.Strings.error): Erro ao adicionar novo inimigo", color: .red)
-            return
+            return say("\(Utils.Strings.error): Erro ao adicionar novo inimigo", color: .red)
         }
         let money = Int(values[exists: 6] ?? "0") ?? .zero
         let enemy = Entity(name: "\(name)",
@@ -35,8 +33,7 @@ extension Message {
                            spd: spd,
                            money: money)
         guard !ENEMIES.contains(where: { $0.name == enemy.name}) else {
-            say("\(Utils.Strings.error): Já existe um inimigo chamado \"\(enemy.name)\"", color: .red)
-            return
+            return say("\(Utils.Strings.error): Já existe um inimigo chamado \"\(enemy.name)\"", color: .red)
         }
         ENEMIES.append(enemy)
         let message = """

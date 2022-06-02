@@ -21,12 +21,15 @@ struct Ability {
 enum Attributes {
     // STATUS
     case speed
+    case protect
+    case counter
+    case purify
+    
+    // BUFFS & NERFS
     case buffAtk
     case buffDef
     case nerfAtk
     case nerfDef
-    case protect
-    case counter
     
     case doubleBuffAtk
     case doubleBuffDef
@@ -52,6 +55,7 @@ enum Attributes {
     // BOSS
     case area
     case disable
+    case paralyze
     
     // SPECIAL
     case suicide
@@ -83,7 +87,9 @@ enum Attributes {
                 .critical,
                 .drain,
                 .area,
-                .disable:
+                .disable,
+                .purify,
+                .paralyze:
             return true
         }
     }

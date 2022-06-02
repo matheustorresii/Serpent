@@ -77,10 +77,20 @@ extension Message {
             }
         }
         
+        // MARK: - ENDEAVOR
+        
         if abilityUsed.attributes.contains(.endeavor) {
-            let entityPercentage = entity.currentHp / entity.hp
-            target.currentHp(target.hp * entityPercentage)
+            let entityPercentage = Float(entity.currentHp) / Float(entity.hp)
+            let newHp = Int(Float(target.hp) * entityPercentage)
+            target.currentHp(newHp)
             say("\(entity.name) usou \(abilityUsed.name) em \(target.name) e suas vidas se igualaram!", color: .green)
+        }
+        
+        // MARK: - PURIFY
+        
+        if abilityUsed.attributes.contains(.purify) {
+            target.reset()
+            say("\(entity.name) usou \(abilityUsed.name) para purificar \(target.name)!", color: .blue)
         }
         
         // MARK: - REVIVE
@@ -213,6 +223,13 @@ extension Message {
         if abilityUsed.attributes.contains(.disable) {
             target.nerf(.disabled)
             say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está desabilitado e não poderá usar suas habilidades!", color: .orange)
+        }
+        
+        // MARK: - PARALYZE
+        
+        if abilityUsed.attributes.contains(.paralyze) {
+            target.nerf(.paralyzed)
+            say("\(entity.name) usou \(abilityUsed.name) e agora \(target.name) está paralizado!", color: .orange)
         }
         
         // MARK: - DAMAGE

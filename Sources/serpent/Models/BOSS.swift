@@ -20,6 +20,8 @@ enum Bosses: String {
     case anubis
     case gryphon
     case urcaguary
+    case nock
+    case ratman
     
     var entity: Entity? {
         switch self {
@@ -33,6 +35,8 @@ enum Bosses: String {
         case .anubis:    return ANUBIS
         case .gryphon:   return GRYPHON
         case .urcaguary: return URCAGUARY
+        case .nock:      return NOCK
+        case .ratman:    return RATMAN
         }
     }
 }
@@ -199,3 +203,45 @@ fileprivate let URCAGUARY = Entity(name: "Urcaguary",
                                    spd: 50,
                                    money: 1800,
                                    abilities: [])
+
+
+fileprivate let NOCK = Entity(name: "Nock",
+                              hp: 64,
+                              atk: 1,
+                              exa: 1,
+                              def: 59,
+                              spd: 150,
+                              summon: nil,
+                              money: 1900,
+                              item: [],
+                              abilities: [
+                                .init(name: "Incentivo Reverso",
+                                      power: 0,
+                                      pp: 10,
+                                      attributes: [.doubleBuffAtk]),
+                                .init(name: "Crítica Construtiva",
+                                      power: 0,
+                                      pp: 10,
+                                      attributes: [.doubleBuffDef]),
+                                .init(name: "Pedala Robinho",
+                                      power: 0,
+                                      pp: 10,
+                                      attributes: [.doubleNerfAtk]),
+                                .init(name: "Tu é lerdo em",
+                                      power: 0,
+                                      pp: 10,
+                                      attributes: [.speed])
+                              ])
+
+fileprivate let RATMAN = Entity(name: "Ratman",
+                                hp: 600,
+                                atk: 55,
+                                exa: 55,
+                                def: 40,
+                                spd: 60,
+                                abilities: [
+                                    .init(name: "f1lh0t3",
+                                          power: 3,
+                                          pp: 10,
+                                          attributes: [.heal])
+                                ])
