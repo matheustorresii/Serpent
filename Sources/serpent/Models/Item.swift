@@ -19,6 +19,7 @@ struct Item {
         case buffAtk
         case buffDef
         case protect
+        case speed
         
         var description: String {
             switch self {
@@ -28,6 +29,7 @@ struct Item {
             case .buffAtk: return "aumento de ataque"
             case .buffDef: return "aumento de defesa"
             case .protect: return "proteção"
+            case .speed:   return "velocidade"
             }
         }
     }

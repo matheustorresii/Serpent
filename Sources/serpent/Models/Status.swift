@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Sword
 
 enum Status {
     case quadNerfed
@@ -21,6 +22,20 @@ enum Status {
     enum Direction {
         case reduce
         case improve
+        
+        var description: String {
+            switch self {
+            case .reduce:  return "abaixou"
+            case .improve: return "aumentou"
+            }
+        }
+
+        var color: Message.MessageColor {
+            switch self {
+            case .reduce:  return .orange
+            case .improve: return .blue
+            }
+        }
     }
     
     var multiplier: Double {

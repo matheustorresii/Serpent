@@ -1,16 +1,20 @@
-// LEVEL 55 (275)
+// LEVEL 58 (290)
 
 // MARK: - REBELS
 
 let ANYA: Entity = .init(name: "Anya",
                          hp: 100,
-                         atk: 45,
+                         atk: 50,
                          exa: 40,
-                         def: 50,
+                         def: 60,
                          spd: 40,
                          summon: .NEMESIS,
-                         money: 1900,
-                         item: [],
+                         money: 650,
+                         item: [
+                            .init(name: "Frangoteston", effect: .buffAtk, size: .large),
+                            .init(name: "Chicken Chess", effect: .buffDef, size: .large),
+                            .init(name: "Licor de Frango", effect: .purify, size: .small)
+                         ],
                          abilities: [
                             .init(name: "RETRIBUIÇÃO",
                                   power: 0,
@@ -31,17 +35,23 @@ let ANYA: Entity = .init(name: "Anya",
                          ])
 
 let AYIE: Entity = .init(name: "Ayie",
-                         hp: 68,
+                         hp: 76,
                          atk: 43,
-                         exa: 78,
+                         exa: 85,
                          def: 55,
                          spd: 31,
                          summon: .EMERE,
-                         money: 0,
-                         item: [],
+                         money: 630,
+                         item: [
+                            .init(name: "Balde de Frango", effect: .heal, size: .large),
+                            .init(name: "Balde de Frango", effect: .heal, size: .medium),
+                            .init(name: "Balde de Frango", effect: .heal, size: .medium),
+                            .init(name: "Coração de Galinha", effect: .revive, size: .medium),
+                            .init(name: "Licor de Frango", effect: .purify, size: .small)
+                         ],
                          abilities: [
                             .init(name: "Interdimensional",
-                                  power: 1,
+                                  power: 2,
                                   pp: 10,
                                   attributes: [.combo]),
                             .init(name: "Neclo",
@@ -59,16 +69,20 @@ let AYIE: Entity = .init(name: "Ayie",
                          ])
 
 let MAHA: Entity = .init(name: "Maha",
-                         hp: 95,
-                         atk: 100,
+                         hp: 100,
+                         atk: 105,
                          exa: 5,
-                         def: 65,
+                         def: 70,
                          spd: 10,
                          summon: .ZHU_QUE,
-                         money: 4000,
+                         money: 1000,
                          item: [
                             .init(name: "Esfera de Anúbis Vermelha", effect: .buffAtk, size: .small),
-                            .init(name: "Pena de Grifo", effect: .revive, size: .large)
+                            .init(name: "Pena de Grifo", effect: .revive, size: .large),
+                            .init(name: "Balde de Frango", effect: .heal, size: .medium),
+                            .init(name: "Frangoteston", effect: .buffAtk, size: .medium),
+                            .init(name: "Frangoteston", effect: .buffAtk, size: .medium),
+                            .init(name: "Licor de Frango", effect: .purify, size: .small)
                          ],
                          abilities: [
                             .init(name: "Arte família",

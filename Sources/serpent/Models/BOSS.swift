@@ -15,13 +15,16 @@ enum Bosses: String {
     case lohan
     case oleg
     case froycon
-    case ikelos
+    case froycon2
     case yeti
     case anubis
     case gryphon
     case urcaguary
     case nock
     case ratman
+    case foroncy
+    case leisker
+    case ikelos
     
     var entity: Entity? {
         switch self {
@@ -30,13 +33,16 @@ enum Bosses: String {
         case .lohan:     return LOHAN
         case .oleg:      return OLEG
         case .froycon:   return FROYCON
-        case .ikelos:    return IKELOS
+        case .froycon2:  return FROYCON2
         case .yeti:      return YETI
         case .anubis:    return ANUBIS
         case .gryphon:   return GRYPHON
         case .urcaguary: return URCAGUARY
         case .nock:      return NOCK
         case .ratman:    return RATMAN
+        case .foroncy:   return FORONCY
+        case .leisker:   return LEISKER
+        case .ikelos:    return IKELOS
         }
     }
 }
@@ -78,7 +84,7 @@ fileprivate let OLEG: Entity = .init(name: "Oleg",
                                         .init(name: "Ira de Ullr",
                                               power: 0,
                                               pp: 10,
-                                              attributes: [.buffAtk]),
+                                              attributes: [.doubleBuffAtk]),
                                         .init(name: "Curaflecha",
                                               power: 2,
                                               pp: 10,
@@ -113,26 +119,26 @@ fileprivate let FROYCON: Entity = .init(name: "Froycon",
                                                   attributes: [.buffAtk, .buffDef]),
                                         ])
 
-fileprivate let IKELOS: Entity = .init(name: "Froycon (Deus do Pesadelo)",
-                                       hp: 100,
-                                       atk: 46,
-                                       exa: 46,
-                                       def: 40,
-                                       spd: 32,
-                                       abilities: [
-                                        .init(name: "Névoa negra",
-                                              power: 1,
-                                              pp: 3,
-                                              attributes: [.area]),
-                                        .init(name: "Paralisia do Sono",
-                                              power: 0,
-                                              pp: 5,
-                                              attributes: [.nerfAtk]),
-                                        .init(name: "Deus do Pesadelo Desperto",
-                                              power: 0,
-                                              pp: 1,
-                                              attributes: [.doubleBuffAtk, .doubleBuffDef]),
-                                       ])
+fileprivate let FROYCON2: Entity = .init(name: "Froycon (Deus do Pesadelo)",
+                                         hp: 100,
+                                         atk: 46,
+                                         exa: 46,
+                                         def: 40,
+                                         spd: 32,
+                                         abilities: [
+                                            .init(name: "Névoa negra",
+                                                  power: 1,
+                                                  pp: 3,
+                                                  attributes: [.area]),
+                                            .init(name: "Paralisia do Sono",
+                                                  power: 0,
+                                                  pp: 5,
+                                                  attributes: [.nerfAtk]),
+                                            .init(name: "Deus do Pesadelo Desperto",
+                                                  power: 0,
+                                                  pp: 1,
+                                                  attributes: [.doubleBuffAtk, .doubleBuffDef]),
+                                         ])
 
 fileprivate let YETI: Entity = .init(name: "Yeti",
                                      hp: 120,
@@ -244,4 +250,78 @@ fileprivate let RATMAN = Entity(name: "Ratman",
                                           power: 3,
                                           pp: 10,
                                           attributes: [.heal])
+                                ])
+
+fileprivate let FORONCY = Entity(name: "Foroncy",
+                                 hp: 300,
+                                 atk: 60,
+                                 exa: 60,
+                                 def: 25,
+                                 spd: 50,
+                                 summon: .IKELOS,
+                                 money: 550,
+                                 abilities: [
+                                    .init(name: "Aura Negra",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.protect]),
+                                    .init(name: "Confusão Mental",
+                                          power: 1,
+                                          pp: 5,
+                                          attributes: [.critical]),
+                                    .init(name: "Deus do Pesadelo",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.doubleBuffAtk, .doubleBuffDef]),
+                                 ])
+
+fileprivate let LEISKER = Entity(name: "Leisker",
+                                 hp: 200,
+                                 atk: 5,
+                                 exa: 45,
+                                 def: 25,
+                                 spd: 100,
+                                 summon: .VENTOLINE,
+                                 item: [
+                                    .init(name: "Pena de Ventoline",
+                                          effect: .speed,
+                                          size: .medium)
+                                 ],
+                                 abilities: [
+                                    .init(name: "Cortes de Vento",
+                                          power: 1,
+                                          pp: 5,
+                                          attributes: [.area]),
+                                    .init(name: "Vento Espiritual",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.protect])
+                                 ])
+
+fileprivate let IKELOS = Entity(name: "Ikelos",
+                                hp: 2000,
+                                atk: 80,
+                                exa: 80,
+                                def: 20,
+                                spd: 40,
+                                summon: .IKELOS,
+                                money: 1500,
+                                item: [
+                                    .init(name: "Coroa do Pesadelo",
+                                          effect: .buffDef,
+                                          size: .large)
+                                ],
+                                abilities: [
+                                    .init(name: "art0m3nt4r",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.paralyze]),
+                                    .init(name: "d3b1l1t4r",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.doubleNerfAtk, .doubleNerfDef]),
+                                    .init(name: "esqu3c1m3nt0",
+                                          power: 0,
+                                          pp: 10,
+                                          attributes: [.disable])
                                 ])

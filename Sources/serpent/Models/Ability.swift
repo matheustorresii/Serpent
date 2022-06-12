@@ -80,16 +80,16 @@ enum Attributes {
                 .tripleBuffDef,
                 .tripleNerfAtk,
                 .tripleNerfDef,
+                .disable,
+                .purify,
+                .paralyze,
                 .suicide:
             return false
         case .physical,
                 .combo,
                 .critical,
                 .drain,
-                .area,
-                .disable,
-                .purify,
-                .paralyze:
+                .area:
             return true
         }
     }

@@ -107,4 +107,16 @@ struct Entity {
     mutating func nerf(_ state: Nerf) {
         nerf = state
     }
+    
+    mutating func stopBuffIfNeeded() {
+        if buff.shouldStop {
+            buff = .none
+        }
+    }
+    
+    mutating func stopNerfIfNeeded() {
+        if nerf.shouldStop {
+            nerf = .none
+        }
+    }
 }

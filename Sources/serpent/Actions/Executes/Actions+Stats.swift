@@ -24,7 +24,7 @@ extension Message {
         var entity = getEntity(with: "\(entityId)")
         let direction: Status.Direction = directionId == "+" ? .improve : .reduce
         entity.atkStatus(direction)
-        say("O ataque de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!", color: direction == .improve ? .blue : .orange)
+        say("O ataque de \(entity.name) \(direction.description)!", color: direction.color)
         updateEntity(entity)
     }
     
@@ -35,52 +35,42 @@ extension Message {
         var entity = getEntity(with: "\(entityId)")
         let direction: Status.Direction = directionId == "+" ? .improve : .reduce
         entity.defStatus(direction)
-        say("A defesa de \(entity.name) \(direction == .improve ? "aumentou" : "abaixou")!", color: direction == .improve ? .blue : .orange)
+        say("A defesa de \(entity.name) \(direction.description)!", color: direction.color)
         updateEntity(entity)
     }
     
-    func counter() {
+    func buff() {
         let values = content.split(separator: " ").dropFirst()
-        guard let entityId = values.first else { return }
+        guard let entityId = values.first,
+              let buffId = values.last,
+              let buff = Buff(rawValue: "\(buffId)") else {
+            return say("\(values.last ?? "") não existe", color: .red)
+        }
         var entity = getEntity(with: "\(entityId)")
-        entity.buff(.counter)
-        say("\(entity.name) está pronto para revidar!", color: .blue)
+        entity.buff(buff)
+        say("\(entity.name) agora está \(buff.description ?? "")!", color: .blue)
         updateEntity(entity)
     }
     
-    func protect() {
+    func nerf() {
         let values = content.split(separator: " ").dropFirst()
-        guard let entityId = values.first else { return }
+        guard let entityId = values.first,
+              let nerfId = values.last,
+              let nerf = Nerf(rawValue: "\(nerfId)") else {
+            return say("\(values.last ?? "") não existe", color: .red)
+        }
         var entity = getEntity(with: "\(entityId)")
-        entity.buff(.protect)
-        say("\(entity.name) está protegido!", color: .blue)
+        entity.nerf(nerf)
+        say("\(entity.name) agora está \(nerf.description ?? "")!", color: .orange)
         updateEntity(entity)
     }
     
-    func unbuff() {
+    func purify() {
         let values = content.split(separator: " ").dropFirst()
         guard let entityId = values.first else { return }
         var entity = getEntity(with: "\(entityId)")
-        entity.buff(.none)
-        say("\(entity.name) não está mais protegido!", color: .orange)
-        updateEntity(entity)
-    }
-    
-    func disable() {
-        let values = content.split(separator: " ").dropFirst()
-        guard let entityId = values.first else { return }
-        var entity = getEntity(with: "\(entityId)")
-        entity.nerf(.disabled)
-        say("\(entity.name) está desabilitado!", color: .orange)
-        updateEntity(entity)
-    }
-    
-    func unnerf() {
-        let values = content.split(separator: " ").dropFirst()
-        guard let entityId = values.first else { return }
-        var entity = getEntity(with: "\(entityId)")
-        entity.nerf(.none)
-        say("\(entity.name) não está mais desabilitado!", color: .blue)
+        entity.reset()
+        say("\(entity.name) está purificado!", color: .blue)
         updateEntity(entity)
     }
 }

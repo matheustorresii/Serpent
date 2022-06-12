@@ -22,8 +22,8 @@ extension Message {
                                                     targetId: "\(targetId)",
                                                     basePower: 0,
                                                     isExa: isExtension)
-        entity.nerf(.none)
-        target.buff(.none)
+        entity.stopNerfIfNeeded()
+        target.stopBuffIfNeeded()
         entity.subHp(entityDamage)
         target.subHp(targetDamage)
         updateEntity(entity, target)

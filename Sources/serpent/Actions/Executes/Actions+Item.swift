@@ -65,6 +65,12 @@ extension Message {
             say("\(entity.name) usou \(item.name) e purificou \(target.name)!", color: .green)
         }
         
+        // MARK: - SPEED
+        
+        if item.effect == .speed {
+            say("\(entity.name) usou \(item.name) e agora \(target.name) está mais rápido!", color: .blue)
+        }
+        
         // MARK: - BUFF ATK
         
         if item.effect == .buffAtk {
@@ -84,7 +90,7 @@ extension Message {
             }
         }
         
-        // MARK: - NERF ATK
+        // MARK: - BUFF DEF
         
         if item.effect == .buffDef {
             switch item.size {

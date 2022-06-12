@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Nerf {
+enum Nerf: String {
     case disabled
     case bleeding
     case paralyzed
@@ -19,6 +19,16 @@ enum Nerf {
         case .bleeding:  return "sangrando"
         case .paralyzed: return "paralisado"
         case .none:      return nil
+        }
+    }
+    
+    
+    var shouldStop: Bool {
+        switch self {
+        case .none, .disabled:
+            return true
+        case .paralyzed, .bleeding:
+            return false
         }
     }
 }

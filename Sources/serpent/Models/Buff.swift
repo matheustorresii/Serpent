@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Buff {
+enum Buff: String {
     case none
     case protect
     case counter
@@ -17,6 +17,13 @@ enum Buff {
         case .none:    return nil
         case .protect: return "protegido"
         case .counter: return "pronto para revidar"
+        }
+    }
+    
+    var shouldStop: Bool {
+        switch self {
+        case .none, .protect, .counter:
+            return true
         }
     }
 }

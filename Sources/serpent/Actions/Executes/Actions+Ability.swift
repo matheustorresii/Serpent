@@ -56,8 +56,8 @@ extension Message {
                                                             isExa: !abilityUsed.attributes.contains(.physical),
                                                             isCrit: abilityUsed.attributes.contains(.critical),
                                                             isCombo: abilityUsed.attributes.contains(.combo))
-                entity.nerf(.none)
-                target.buff(.none)
+                entity.stopNerfIfNeeded()
+                target.stopBuffIfNeeded()
                 entity.subHp(entityDamage)
                 target.subHp(targetDamage)
             }
@@ -242,8 +242,8 @@ extension Message {
                                                         isExa: !abilityUsed.attributes.contains(.physical),
                                                         isCrit: abilityUsed.attributes.contains(.critical),
                                                         isCombo: abilityUsed.attributes.contains(.combo))
-            entity.nerf(.none)
-            target.buff(.none)
+            entity.stopNerfIfNeeded()
+            target.stopBuffIfNeeded()
             entity.subHp(entityDamage)
             target.subHp(targetDamage)
             

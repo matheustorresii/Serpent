@@ -14,6 +14,7 @@ enum Npcs: String {
     case test
     case yareth
     case peter
+    case aurora
     
     var entity: Entity? {
         switch self {
@@ -21,6 +22,7 @@ enum Npcs: String {
         case .test:   return TEST
         case .yareth: return YARETH
         case .peter:  return PETER
+        case .aurora: return AURORA
         }
     }
 }
@@ -71,3 +73,25 @@ fileprivate let PETER = Entity(name: "Peter",
                                       pp: 10,
                                       attributes: [.nerfDef, .nerfAtk])
                                ])
+
+fileprivate let AURORA = Entity(name: "Aurora",
+                                hp: 200,
+                                atk: 105,
+                                exa: 5,
+                                def: 70,
+                                spd: 45,
+                                summon: .FENRIR,
+                                abilities: [
+                                    .init(name: "Espadas da Irmandade",
+                                          power: 2,
+                                          pp: 5,
+                                          attributes: [.critical, .combo, .physical]),
+                                    .init(name: "Armadura Gélida",
+                                          power: 0,
+                                          pp: 10,
+                                          attributes: [.doubleBuffDef]),
+                                    .init(name: "Iluminação",
+                                          power: 0,
+                                          pp: 10,
+                                          attributes: [.doubleBuffAtk])
+                                ])

@@ -19,20 +19,20 @@ enum Actions: String {
     case attack
     case boss
     case bossSummon
+    case buff
     case check
-    case counter
     case damage
     case def
-    case disable
     case enemies
     case exattack = "extension"
     case heal
     case item
     case money
+    case nerf
     case npc
     case party
     case players
-    case protect
+    case purify
     case random
     case reset
     case rest
@@ -53,20 +53,20 @@ enum Actions: String {
         case .attack:     return { $0.attack(isExtension: false) }
         case .boss:       return { $0.boss() }
         case .bossSummon: return { $0.bossSummon() }
+        case .buff:       return { $0.buff() }
         case .check:      return { $0.check() }
-        case .counter:    return { $0.counter() }
         case .damage:     return { $0.damage() }
         case .def:        return { $0.def() }
-        case .disable:    return { $0.disable() }
         case .enemies:    return { $0.enemies() }
         case .exattack:   return { $0.attack(isExtension: true) }
         case .heal:       return { $0.heal() }
         case .item:       return { $0.item() }
         case .money:      return { $0.money() }
+        case .nerf:       return { $0.nerf() }
         case .npc:        return { $0.npc() }
         case .party:      return { $0.party() }
         case .players:    return { $0.players() }
-        case .protect:    return { $0.protect() }
+        case .purify:     return { $0.purify() }
         case .random:     return { $0.random() }
         case .reset:      return { $0.reset() }
         case .rest:       return { $0.rest() }

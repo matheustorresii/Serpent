@@ -8,7 +8,6 @@
 import Sword
 
 extension Message {
-    
     func doDamage(entityId: String,
                   targetId: String,
                   basePower: Int = 0,
@@ -23,9 +22,13 @@ extension Message {
             return (0, 0)
         }
         
-        if entity.nerf == .paralyzed, Int.random(in: 1...5) == 1 {
-            say("\(entity.name) está paralizado e não conseguiu atacar", color: .orange)
-            return (0, 0)
+        if entity.nerf == .paralyzed {
+            let random = Int.random(in: 1...5)
+            print(random)
+            if random == 1 {
+                say("\(entity.name) está paralizado e não conseguiu atacar", color: .orange)
+                return (0, 0)
+            }
         }
         
         var damage = Utils.damage(atk: getAtk(for: entity, isExa: isExa),

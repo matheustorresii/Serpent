@@ -3,7 +3,7 @@ import Foundation
 
 let bot = Sword(token: TOKEN)
 
-bot.editStatus(to: "online", playing: "Episode 2")
+bot.editStatus(to: "online", playing: "Episode 3")
 
 bot.on(.messageCreate) { data in
     guard let msg = data as? Message, msg.content.starts(with: "!") else { return }
