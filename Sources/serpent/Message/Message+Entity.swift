@@ -9,7 +9,7 @@ import Sword
 
 extension Message {
     func getEntity(with id: String) -> Entity {
-        if id == "boss", let boss = BOSS {
+        if id == Utils.Strings.bossId, let boss = BOSS {
             return boss
         } else if let index = Int(id), let enemy = ENEMIES[exists: index - 1] {
             return enemy

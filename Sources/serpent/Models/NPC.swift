@@ -15,6 +15,7 @@ enum Npcs: String {
     case yareth
     case peter
     case aurora
+    case korin
     
     var entity: Entity? {
         switch self {
@@ -23,6 +24,7 @@ enum Npcs: String {
         case .yareth: return YARETH
         case .peter:  return PETER
         case .aurora: return AURORA
+        case .korin:  return KORIN
         }
     }
 }
@@ -49,10 +51,10 @@ fileprivate let TEST = Entity(name: "Teste",
 
 fileprivate let YARETH = Entity(name: "Yareth",
                                 hp: 1000,
-                                atk: 1,
-                                exa: 1,
-                                def: 1000,
-                                spd: 1,
+                                atk: 36,
+                                exa: 36,
+                                def: 30,
+                                spd: 23,
                                 summon: .QUETZALCOATL,
                                 abilities: [
                                     .init(name: "Benção da Serpente",
@@ -76,9 +78,9 @@ fileprivate let PETER = Entity(name: "Peter",
 
 fileprivate let AURORA = Entity(name: "Aurora",
                                 hp: 200,
-                                atk: 105,
+                                atk: 120,
                                 exa: 5,
-                                def: 70,
+                                def: 80,
                                 spd: 45,
                                 summon: .FENRIR,
                                 abilities: [
@@ -93,5 +95,23 @@ fileprivate let AURORA = Entity(name: "Aurora",
                                     .init(name: "Iluminação",
                                           power: 0,
                                           pp: 10,
-                                          attributes: [.doubleBuffAtk])
+                                          attributes: [.heal, .buffAtk])
                                 ])
+
+fileprivate let KORIN = Entity(name: "Korin",
+                               hp: 200,
+                               atk: 120,
+                               exa: 200,
+                               def: 130,
+                               spd: 10,
+                               summon: .IMPUNDULU,
+                               abilities: [
+                                .init(name: "𝔼𝕃𝔼ℂ𝕋ℝ𝕀𝔽𝕐",
+                                      power: 0,
+                                      pp: 5,
+                                      attributes: [.paralyze]),
+                                .init(name: "𝔾ℝ𝔸ℕ𝔻 𝕋ℍ𝕌ℕ𝔻𝔼ℝ",
+                                      power: 10,
+                                      pp: 3,
+                                      attributes: [.critical])
+                               ])

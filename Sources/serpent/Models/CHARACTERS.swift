@@ -1,25 +1,24 @@
-// LEVEL 58 (290)
+// LEVEL 75 (375)
 
-// MARK: - REBELS
+// MARK: - REBELS\
 
 let ANYA: Entity = .init(name: "Anya",
-                         hp: 100,
-                         atk: 50,
+                         hp: 110,
+                         atk: 70,
                          exa: 40,
-                         def: 60,
+                         def: 65,
                          spd: 40,
                          summon: .NEMESIS,
-                         money: 650,
+                         money: 3915,
                          item: [
-                            .init(name: "Frangoteston", effect: .buffAtk, size: .large),
                             .init(name: "Chicken Chess", effect: .buffDef, size: .large),
                             .init(name: "Licor de Frango", effect: .purify, size: .small)
                          ],
                          abilities: [
-                            .init(name: "RETRIBUIÇÃO",
+                            .init(name: "CEGUEIRA",
                                   power: 0,
                                   pp: 5,
-                                  attributes: [.counter]),
+                                  attributes: [.doubleBuffAtk]),
                             .init(name: "IGUALDADE",
                                   power: 0,
                                   pp: 5,
@@ -35,19 +34,17 @@ let ANYA: Entity = .init(name: "Anya",
                          ])
 
 let AYIE: Entity = .init(name: "Ayie",
-                         hp: 76,
+                         hp: 96,
                          atk: 43,
-                         exa: 85,
-                         def: 55,
+                         exa: 93,
+                         def: 62,
                          spd: 31,
                          summon: .EMERE,
-                         money: 630,
+                         money: 4160,
                          item: [
-                            .init(name: "Balde de Frango", effect: .heal, size: .large),
                             .init(name: "Balde de Frango", effect: .heal, size: .medium),
                             .init(name: "Balde de Frango", effect: .heal, size: .medium),
-                            .init(name: "Coração de Galinha", effect: .revive, size: .medium),
-                            .init(name: "Licor de Frango", effect: .purify, size: .small)
+                            .init(name: "Coração de Galinha", effect: .revive, size: .medium)
                          ],
                          abilities: [
                             .init(name: "Interdimensional",
@@ -69,20 +66,17 @@ let AYIE: Entity = .init(name: "Ayie",
                          ])
 
 let MAHA: Entity = .init(name: "Maha",
-                         hp: 100,
-                         atk: 105,
+                         hp: 110,
+                         atk: 120,
                          exa: 5,
-                         def: 70,
+                         def: 80,
                          spd: 10,
                          summon: .ZHU_QUE,
-                         money: 1000,
+                         money: 4530,
                          item: [
-                            .init(name: "Esfera de Anúbis Vermelha", effect: .buffAtk, size: .small),
                             .init(name: "Pena de Grifo", effect: .revive, size: .large),
                             .init(name: "Balde de Frango", effect: .heal, size: .medium),
-                            .init(name: "Frangoteston", effect: .buffAtk, size: .medium),
-                            .init(name: "Frangoteston", effect: .buffAtk, size: .medium),
-                            .init(name: "Licor de Frango", effect: .purify, size: .small)
+                            .init(name: "Coroa do Pesadelo", effect: .buffDef, size: .large)
                          ],
                          abilities: [
                             .init(name: "Arte família",
@@ -99,7 +93,7 @@ let MAHA: Entity = .init(name: "Maha",
                                   attributes: [.buffAtk]),
                             .init(name: "Respiração pai",
                                   power: 5,
-                                  pp: 8,
+                                  pp: 3,
                                   attributes: [.physical, .critical])
                          ])
 

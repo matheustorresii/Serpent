@@ -39,6 +39,7 @@ enum Actions: String {
     case removeItem
     case setBoss
     case summon
+    case ult
     case unrest
     
     var execute: ((Message) -> Void) {
@@ -73,6 +74,7 @@ enum Actions: String {
         case .removeItem: return { $0.removeItem() }
         case .setBoss:    return { $0.setBoss() }
         case .summon:     return { $0.summon() }
+        case .ult:        return { $0.ult() }
         case .unrest:     return { $0.unrest() }
         }
     }

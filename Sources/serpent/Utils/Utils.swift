@@ -24,4 +24,8 @@ extension Utils {
         static let error = "[Error 😵]"
         static let bossId = "boss"
     }
+    
+    struct Numbers {
+        static let charge: Int = 1000
+    }
 }

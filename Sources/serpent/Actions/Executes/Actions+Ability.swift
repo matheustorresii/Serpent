@@ -19,8 +19,8 @@ extension Message {
     }
     
     func doAbility(entityId: String, targetId: String, abilityIndex: Int) {
-        var entity = getEntity(with: "\(entityId)")
-        var target = getEntity(with: "\(targetId)")
+        var entity = getEntity(with: entityId)
+        var target = getEntity(with: targetId)
         
         guard let abilityUsed = entity.abilities[exists: abilityIndex-1] else {
             say("\(Utils.Strings.error): Não foi possível achar essa habilidade", color: .red)

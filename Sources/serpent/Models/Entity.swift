@@ -32,6 +32,8 @@ struct Entity {
     var buff: Buff
     var nerf: Nerf
     
+    var charge: Int
+    
     // MARK: - INITIALIZERS
     
     init(name: String,
@@ -41,7 +43,7 @@ struct Entity {
          def: Int,
          spd: Int,
          summon: Summon? = nil,
-         money: Int = 0,
+         money: Int = .zero,
          item: [Item] = [],
          abilities: [Ability] = []) {
         
@@ -65,6 +67,8 @@ struct Entity {
         
         self.buff = .none
         self.nerf = .none
+        
+        self.charge = .zero
     }
     
     // MARK: - METHODS

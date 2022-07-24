@@ -19,12 +19,14 @@ enum Bosses: String {
     case yeti
     case anubis
     case gryphon
+    case gryphon2
     case urcaguary
     case nock
     case ratman
     case foroncy
     case leisker
     case ikelos
+    case korin
     
     var entity: Entity? {
         switch self {
@@ -37,12 +39,14 @@ enum Bosses: String {
         case .yeti:      return YETI
         case .anubis:    return ANUBIS
         case .gryphon:   return GRYPHON
+        case .gryphon2:  return GRYPHON2
         case .urcaguary: return URCAGUARY
         case .nock:      return NOCK
         case .ratman:    return RATMAN
         case .foroncy:   return FORONCY
         case .leisker:   return LEISKER
         case .ikelos:    return IKELOS
+        case .korin:     return KORIN
         }
     }
 }
@@ -201,6 +205,23 @@ fileprivate let GRYPHON = Entity(name: "Grifo",
                                           attributes: [.area])
                                  ])
 
+fileprivate let GRYPHON2 = Entity(name: "Grifo",
+                                  hp: 300,
+                                  atk: 55,
+                                  exa: 55,
+                                  def: 30,
+                                  spd: 60,
+                                  abilities: [
+                                    .init(name: "Penas mágicas",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.heal, .buffDef]),
+                                    .init(name: "Ventania",
+                                          power: 1,
+                                          pp: 10,
+                                          attributes: [.area])
+                                  ])
+
 fileprivate let URCAGUARY = Entity(name: "Urcaguary",
                                    hp: 500,
                                    atk: 30,
@@ -253,13 +274,12 @@ fileprivate let RATMAN = Entity(name: "Ratman",
                                 ])
 
 fileprivate let FORONCY = Entity(name: "Foroncy",
-                                 hp: 300,
+                                 hp: 500,
                                  atk: 60,
                                  exa: 60,
                                  def: 25,
-                                 spd: 50,
+                                 spd: 70,
                                  summon: .IKELOS,
-                                 money: 550,
                                  abilities: [
                                     .init(name: "Aura Negra",
                                           power: 0,
@@ -302,26 +322,51 @@ fileprivate let IKELOS = Entity(name: "Ikelos",
                                 hp: 2000,
                                 atk: 80,
                                 exa: 80,
-                                def: 20,
+                                def: 25,
                                 spd: 40,
-                                summon: .IKELOS,
-                                money: 1500,
+                                money: 3000,
                                 item: [
                                     .init(name: "Coroa do Pesadelo",
                                           effect: .buffDef,
                                           size: .large)
                                 ],
                                 abilities: [
-                                    .init(name: "art0m3nt4r",
+                                    .init(name: "ǎ̶͖r̶̟͝t̴̜̏ö̷̬́ḿ̷̻e̵̜͝n̷̪͂t̸͍̀ä̴̢́r̸̭̄",
                                           power: 0,
                                           pp: 5,
                                           attributes: [.paralyze]),
-                                    .init(name: "d3b1l1t4r",
+                                    .init(name: "d̷̞̓e̷̪̓b̶̬̓i̵̜̍l̵͕̿i̷̫̔t̵͈̑a̷͘ͅr̵̘̋",
                                           power: 0,
                                           pp: 5,
                                           attributes: [.doubleNerfAtk, .doubleNerfDef]),
-                                    .init(name: "esqu3c1m3nt0",
+                                    .init(name: "ė̸̜s̸͒͜q̵̻̔u̷͚̕ę̵̀ç̷̈́í̵̩m̸͎͑e̷̥͐n̸͍̂t̴͎͊ò̶̝",
                                           power: 0,
                                           pp: 10,
-                                          attributes: [.disable])
+                                          attributes: [.disable]),
+                                    .init(name: "r̵̗̓ẽ̷͓ġ̶̻ě̵̲ṋ̷̓e̵͖̊r̸͇̃a̸͖̕r̷̘͛",
+                                          power: 1,
+                                          pp: 5,
+                                          attributes: [.heal, .buffDef])
                                 ])
+
+fileprivate let KORIN = Entity(name: "Korin",
+                               hp: 600,
+                               atk: 120,
+                               exa: 200,
+                               def: 130,
+                               spd: 10,
+                               summon: .IMPUNDULU,
+                               abilities: [
+                                .init(name: "𝔼𝕃𝔼ℂ𝕋ℝ𝕀𝔽𝕐",
+                                      power: 0,
+                                      pp: 5,
+                                      attributes: [.paralyze]),
+                                .init(name: "𝔾ℝ𝔸ℕ𝔻 𝕋ℍ𝕌ℕ𝔻𝔼ℝ",
+                                      power: 10,
+                                      pp: 3,
+                                      attributes: [.critical]),
+                                .init(name: "𝔹𝕃𝕆𝕆𝔻 𝕎𝕀ℝ𝔼",
+                                      power: 2,
+                                      pp: 5,
+                                      attributes: [.drain])
+                               ])

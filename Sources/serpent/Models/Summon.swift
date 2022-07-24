@@ -30,6 +30,7 @@ extension Summon {
     static let QUETZALCOATL: Summon = .init(name: "Quetzalcoatl", effect: .speed)
     static let NEMESIS: Summon = .init(name: "Nêmesis", effect: .counter)
     static let MOMO: Summon = .init(name: "Momo", effect: .random)
-    static let VENTOLINE: Summon = .init(name: "Ventoline", effect: .speed)
+    static let VENTOLINE: Summon = .init(name: "Ventoline", effect: .buffAtk)
     static let FENRIR: Summon = .init(name: "Fenrir", effect: .buffDef)
+    static let IMPUNDULU: Summon = .init(name: "Impundulu", effect: .buffAtk)
 }
