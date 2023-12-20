@@ -239,7 +239,8 @@ extension Message {
             say("\(entity.name) usou \(technique.name)", color: .yellow)
             let (newEntity, newTarget) = doDamage(entityId: entityId,
                                                   targetId: targetId,
-                                                  technique: technique)
+                                                  technique: technique,
+                                                  isExa: !technique.attributes.contains(.physical))
             updateEntity(newEntity, newTarget)
         }
     }

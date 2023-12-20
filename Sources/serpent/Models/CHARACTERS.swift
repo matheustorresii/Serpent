@@ -137,9 +137,9 @@ let YONIN: Entity = .init(name: "Yonin",
                                   pp: 10,
                                   attributes: [.buffAtk]),
                             .init(name: "Passos Sombrios",
-                                  power: 1,
-                                  pp: 5,
-                                  attributes: [.critical, .combo])
+                                  power: 0,
+                                  pp: 3,
+                                  attributes: [.physical, .critical])
                          ])
 
 var CHARACTERS: [Entity] = [ADELINE, ALKI, AMREN, VALAK, YONIN]
