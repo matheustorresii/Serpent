@@ -10,8 +10,7 @@ import Sword
 
 extension Message {
     func summon() {
-        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
-        summon(from: character.entity, allies: true)
+        summon(from: character(), allies: true)
     }
     
     func bossSummon() {

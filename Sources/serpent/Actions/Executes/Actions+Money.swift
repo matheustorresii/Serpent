@@ -10,12 +10,12 @@ import Sword
 
 extension Message {
     func money() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let entityId = values.first,
               let lastValue = values.last,
               let value = Int(lastValue) else { return }
         
-        var entity = getEntity(with: "\(entityId)")
+        var entity = getEntity(with: entityId)
         entity.money(value)
         say("\(entity.name) \(value < 0 ? "perdeu" : "ganhou") ♀︎\(value < 0 ? (value * -1) : value) e agora possui ♀︎\(entity.money)", color: .cyan)
         updateEntity(entity)

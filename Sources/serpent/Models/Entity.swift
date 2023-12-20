@@ -21,6 +21,7 @@ struct Entity {
     let spd: Int
     
     let summon: Summon?
+    var ultimate: Ultimate?
     
     var money: Int
     var items: [Item]
@@ -32,8 +33,6 @@ struct Entity {
     var buff: Buff
     var nerf: Nerf
     
-    var charge: Int
-    
     // MARK: - INITIALIZERS
     
     init(name: String,
@@ -43,6 +42,7 @@ struct Entity {
          def: Int,
          spd: Int,
          summon: Summon? = nil,
+         ultimate: Ultimate? = nil,
          money: Int = .zero,
          item: [Item] = [],
          abilities: [Ability] = []) {
@@ -57,6 +57,7 @@ struct Entity {
         self.spd = spd
         
         self.summon = summon
+        self.ultimate = ultimate
         
         self.money = money
         self.items = item
@@ -67,8 +68,15 @@ struct Entity {
         
         self.buff = .none
         self.nerf = .none
-        
-        self.charge = .zero
+    }
+    
+    static var empty: Entity {
+        return .init(name: "null",
+                     hp: .zero,
+                     atk: .zero,
+                     exa: .zero,
+                     def: .zero,
+                     spd: .zero)
     }
     
     // MARK: - METHODS
@@ -122,5 +130,49 @@ struct Entity {
         if nerf.shouldStop {
             nerf = .none
         }
+    }
+}
+
+// MARK: - EXTENSIONS
+
+// Testers:
+// 417119513788809218 = Maryana
+// 240600043013406720 = Heitor
+// Masters:
+// 316249647137947648 = BlinkN
+// 748944007366705223 = DevDev
+// Players 1:
+// 337595162572095510 = Pedrin
+// 892539055953305630 = Pedrin 2
+// 419197752816173057 = Thiaguin
+// 204663989395783680 = Samuel
+// 243371249215078400 = Savio
+// Players 2:
+// 416753972704182273 = Elias
+// 949316601537245254 = Giovanna
+// 696057802552115200 = Giulia
+// 243371249215078400 = Savio
+// 258682486219866124 = Xande
+
+extension Entity {
+    static func getEntityWith(id: String?) -> Entity {
+        switch id {
+        case "949316601537245254":
+            return ADELINE
+        case "243371249215078400":
+            return ALKI
+        case "696057802552115200":
+            return AMREN
+        case "416753972704182273":
+            return VALAK
+        case "258682486219866124":
+            return YONIN
+        default:
+            return NPC ?? .empty
+        }
+    }
+    
+    static func getEntityWith(name: String) -> Entity {
+        return CHARACTERS.players.first { $0.name.lowercased() == name.lowercased() } ?? NPC ?? .empty
     }
 }

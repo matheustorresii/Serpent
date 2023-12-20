@@ -9,19 +9,9 @@ import Sword
 
 extension Message {
     func damage() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let entityId = values.first, let targetId = values.last else { return }
-        
-        var entity = getEntity(with: "\(entityId)")
-        var target = getEntity(with: "\(targetId)")
-        
-        let (entityDamage, targetDamage) = doDamage(entityId: "\(entityId)", targetId: "\(targetId)")
-        
-        entity.stopNerfIfNeeded()
-        target.stopBuffIfNeeded()
-        entity.subHp(entityDamage)
-        target.subHp(targetDamage)
-        
-        updateEntity(entity, target)
+        let (newEntity, newTarget) = doDamage(entityId: entityId, targetId: targetId)
+        updateEntity(newEntity, newTarget)
     }
 }

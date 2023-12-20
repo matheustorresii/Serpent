@@ -9,12 +9,11 @@ import Sword
 
 extension Message {
     func random() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let first = values.first, let last = values.last,
               let min = Int(first), let max = Int(last),
               min < max else { return }
-        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
         let random = Int.random(in: min...max)
-        say("\(character.entity.name) rolou o número \(random)", color: .yellow)
+        say("\(character().name) rolou o número \(random)", color: .yellow)
     }
 }

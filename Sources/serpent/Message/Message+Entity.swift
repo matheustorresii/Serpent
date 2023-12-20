@@ -14,7 +14,7 @@ extension Message {
         } else if let index = Int(id), let enemy = ENEMIES[exists: index - 1] {
             return enemy
         } else {
-            return Character.entityWith(name: id)
+            return Entity.getEntityWith(name: id)
         }
     }
     

@@ -10,13 +10,13 @@ import Sword
 extension Message {
     // name - hp - atk - def - spd - drop
     func append() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         // Exists index
-        guard let name = values[exists: 1],
-              let value1 = values[exists: 2],
-              let value2 = values[exists: 3],
-              let value3 = values[exists: 4],
-              let value4 = values[exists: 5],
+        guard let name = values[exists: 0],
+              let value1 = values[exists: 1],
+              let value2 = values[exists: 2],
+              let value3 = values[exists: 3],
+              let value4 = values[exists: 4],
               // Parsing
               let hp = Int(value1),
               let atk = Int(value2),
@@ -49,13 +49,13 @@ extension Message {
     
     func appendItem() {
         // id - name - effect - size
-        let values = content.split(separator: " ").dropFirst()
-        guard let entityValue = values[exists: 1],
-              let nameValue = values[exists: 2],
-              let effectValue = values[exists: 3],
-              let sizeValue = values[exists: 4],
-              let effect = Item.Effect(rawValue: "\(effectValue)"),
-              let size = Item.Size(rawValue: "\(sizeValue)") else {
+        let values = messageValues()
+        guard let entityValue = values[exists: 0],
+              let nameValue = values[exists: 1],
+              let effectValue = values[exists: 2],
+              let sizeValue = values[exists: 3],
+              let effect = Item.Effect(rawValue: effectValue),
+              let size = Item.Size(rawValue: sizeValue) else {
             say("\(Utils.Strings.error): Erro ao adicionar novo item", color: .red)
             return
         }

@@ -21,3 +21,9 @@ extension Array where Element == Entity {
         return CHARACTERS
     }
 }
+
+extension Array where Element == Ability {
+    func find(_ name: String) -> Element? {
+        return first { $0.name == name }
+    }
+}

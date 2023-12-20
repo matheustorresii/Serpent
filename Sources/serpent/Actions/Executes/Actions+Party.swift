@@ -25,9 +25,9 @@ enum Party: String {
 
 extension Message {
     func party() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let value = values.last else { return }
-        guard let party = Party(rawValue: "\(value)") else {
+        guard let party = Party(rawValue: value) else {
             return say("\(Utils.Strings.error): Party não registrada", color: .red)
         }
         say("Agora o grupo de jogadores faz parte dos \(party.rawValue.capitalized)", color: .yellow)

@@ -9,18 +9,21 @@ import Sword
 
 extension Message {
     func boss() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let targetId = values.first else { return }
         if values.count == 1 {
             bossAttack(targetId: "\(targetId)")
         } else {
             guard let ability = values.last, let abilityIndex = Int(ability) else { return }
-            bossAbility(targetId: "\(targetId)", abilityIndex: abilityIndex)
+            guard let technique = BOSS?.abilities[exists: abilityIndex-1] else {
+                return say("\(Utils.Strings.error): Não foi possível achar essa habilidade", color: .red)
+            }
+            bossAbility(targetId: targetId, technique: technique)
         }
     }
     
     func setBoss() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let bossName = values.last else { return }
         guard let newBoss = Bosses(rawValue: "\(bossName)") else {
             return say("\(Utils.Strings.error): Este BOSS não está registrado!", color: .red)
@@ -30,20 +33,11 @@ extension Message {
     }
     
     fileprivate func bossAttack(targetId: String) {
-        var entity = getEntity(with: Utils.Strings.bossId)
-        var target = getEntity(with: targetId)
-        
-        let (entityDamage, targetDamage) = doDamage(entityId: Utils.Strings.bossId, targetId: targetId)
-        
-        entity.stopNerfIfNeeded()
-        target.stopBuffIfNeeded()
-        entity.subHp(entityDamage)
-        target.subHp(targetDamage)
-        
-        updateEntity(entity, target)
+        let (newEntity, newTarget) = doDamage(entityId: Utils.Strings.bossId, targetId: targetId)
+        updateEntity(newEntity, newTarget)
     }
     
-    fileprivate func bossAbility(targetId: String, abilityIndex: Int) {
-        doAbility(entityId: Utils.Strings.bossId, targetId: targetId, abilityIndex: abilityIndex)
+    fileprivate func bossAbility(targetId: String, technique: TechniqueProtocol) {
+        doTechnique(entityId: Utils.Strings.bossId, targetId: targetId, technique: technique)
     }
 }

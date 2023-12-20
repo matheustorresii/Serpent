@@ -14,6 +14,8 @@ protocol AbilityBase {
 }
 
 enum Attributes {
+    case none
+    
     // STATUS
     case speed
     case protect
@@ -52,12 +54,10 @@ enum Attributes {
     case disable
     case paralyze
     
-    // SPECIAL
-    case suicide
-    
     var shouldDoDamage: Bool {
         switch self {
-        case .speed,
+        case .none,
+                .speed,
                 .buffAtk,
                 .buffDef,
                 .nerfAtk,
@@ -77,8 +77,7 @@ enum Attributes {
                 .tripleNerfDef,
                 .disable,
                 .purify,
-                .paralyze,
-                .suicide:
+                .paralyze:
             return false
         case .physical,
                 .combo,

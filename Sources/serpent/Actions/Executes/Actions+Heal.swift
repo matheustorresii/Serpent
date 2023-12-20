@@ -9,13 +9,13 @@ import Sword
 
 extension Message {
     func heal() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let entityId = values.first,
               let lastValue = values.last,
               let value = Int(lastValue) else { return }
         
-        var entity = getEntity(with: "\(entityId)")
-        let newHp = heal(entityId: "\(entityId)", with: value)
+        var entity = getEntity(with: entityId)
+        let newHp = heal(entityId: entityId, with: value)
         entity.currentHp(newHp)
         updateEntity(entity)
     }

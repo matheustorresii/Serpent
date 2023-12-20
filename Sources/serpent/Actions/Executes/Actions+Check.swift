@@ -24,9 +24,9 @@ extension Message {
     }
     
     func check() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         if let lastValue = values.last {
-            let entity = getEntity(with: "\(lastValue)")
+            let entity = getEntity(with: lastValue)
             check(entity: entity, shouldShowExtra: false)
         } else {
             checkSelf()
@@ -34,17 +34,22 @@ extension Message {
     }
     
     fileprivate func checkSelf() {
-        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
-        check(entity: character.entity, shouldShowExtra: true)
+        check(entity: character(), shouldShowExtra: true)
     }
     
     fileprivate func check(entity: Entity, shouldShowExtra: Bool) {
-        var message = "\(entity.name) está com \(entity.currentHp) de HP\(shouldShowExtra ? " e ♀︎\(entity.money)" : "")"
+        var message = "\(entity.name) está com \(entity.currentHp) de HP"
         if shouldShowExtra {
-            let abilitiesMessage = entity.abilities.enumerated().map {
-                return "- Habilidade \($0 + 1): \($1.name) (\($1.pp)pp)"
-            }.joined(separator: "\n")
-            message += "\n\nHabilidades:\n\(abilitiesMessage)"
+            message += "\nCochis: ♀︎\(entity.money)"
+            if let ultimate = entity.ultimate {
+                message += "\n\(ultimate.name): \(ultimate.charge)/\(ultimate.limit)"
+            }
+            if !entity.abilities.isEmpty {
+                let abilitiesMessage = entity.abilities.enumerated().map {
+                    return "- Habilidade \($0 + 1): \($1.name) (\($1.pp)pp)"
+                }.joined(separator: "\n")
+                message += "\n\nHabilidades:\n\(abilitiesMessage)"
+            }
             
             if !entity.items.isEmpty {
                 let itemsMessage = entity.items.enumerated().map {

@@ -27,6 +27,7 @@ enum Bosses: String {
     case leisker
     case ikelos
     case korin
+    case potamoi
     
     var entity: Entity? {
         switch self {
@@ -47,6 +48,7 @@ enum Bosses: String {
         case .leisker:   return LEISKER
         case .ikelos:    return IKELOS
         case .korin:     return KORIN
+        case .potamoi:   return POTAMOI
         }
     }
 }
@@ -96,7 +98,7 @@ fileprivate let OLEG: Entity = .init(name: "Oleg",
                                         .init(name: "Flechão",
                                               power: 200,
                                               pp: 1,
-                                              attributes: [.critical, .suicide]),
+                                              attributes: [.critical]),
                                      ])
 
 fileprivate let FROYCON: Entity = .init(name: "Froycon",
@@ -370,3 +372,21 @@ fileprivate let KORIN = Entity(name: "Korin",
                                       pp: 5,
                                       attributes: [.drain])
                                ])
+
+
+fileprivate let POTAMOI = Entity(name: "ᑫᑌIᗰEᖇᗩ",
+                                 hp: 500,
+                                 atk: 35,
+                                 exa: 35,
+                                 def: 40,
+                                 spd: 25,
+                                 abilities: [
+                                    .init(name: "ᑕᒪOᑎᗩGEᗰ",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.none]),
+                                    .init(name: "ÁGᑌᗩ ᗷEᑎTᗩ",
+                                          power: 0,
+                                          pp: 5,
+                                          attributes: [.purify, .heal])
+                                 ])

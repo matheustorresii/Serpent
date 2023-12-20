@@ -10,16 +10,19 @@ import Sword
 extension Message {
     func doDamage(entityId: String,
                   targetId: String,
-                  basePower: Int = 0,
-                  isExa: Bool = false,
-                  isCrit: Bool = false,
-                  isCombo: Bool = false) -> (Int, Int) {
-        let entity = getEntity(with: entityId)
+                  technique: TechniqueProtocol? = nil,
+                  isExa: Bool = false) -> (Entity, Entity) {
+        var entity = getEntity(with: entityId)
         var target = getEntity(with: targetId)
+        
+        defer {
+            entity.stopNerfIfNeeded()
+            target.stopBuffIfNeeded()
+        }
         
         if target.buff == .protect {
             say("\(target.name) estava protegido e não tomou dano!", color: .yellow)
-            return (0, 0)
+            return (entity, target)
         }
         
         if entity.nerf == .paralyzed {
@@ -27,35 +30,49 @@ extension Message {
             print(random)
             if random == 1 {
                 say("\(entity.name) está paralizado e não conseguiu atacar", color: .orange)
-                return (0, 0)
+                return (entity, target)
             }
         }
         
+        let random: Int = .random(in: 1...100)
         var damage = Utils.damage(atk: getAtk(for: entity, isExa: isExa),
-                                  def: getDef(for: target), basePower: basePower)
+                                  def: getDef(for: target),
+                                  basePower: technique?.power ?? 0,
+                                  random: random)
         
-        if isCombo {
+        if technique?.attributes.contains(.combo) == true {
             let oppositeDamage = Utils.damage(atk: getAtk(for: entity, isExa: !isExa),
-                                              def: getDef(for: target), basePower: basePower)
+                                              def: getDef(for: target),
+                                              basePower: technique?.power ?? 0,
+                                              random: random)
             damage += oppositeDamage
         }
         
-        let fullDamage = damage * (isCrit ? 2 : 1)
+        entity.ultimate?.addCharge(random)
         
-        target.currentHp(target.currentHp - fullDamage)
+        let targetDamage = damage * (technique?.attributes.contains(.critical) == true ? 2 : 1)
         
-        let description = isCrit ? "crítico" : isCombo ? "de combo" : isExa ? "de extension" : "físico"
+        let description = isExa || (technique?.attributes.contains(.physical) == false) ? "de extension" : "físico"
         
-        say("\(entity.name) deu \(fullDamage) de dano \(description) em \(target.name)", color: .yellow)
+        say("\(entity.name) deu \(targetDamage) de dano \(description) em \(target.name)", color: .yellow)
         
-        let entityDamage: Int = target.buff == .counter ? fullDamage/2 : .zero
+        let entityDamage: Int = target.buff == .counter ? targetDamage/2 : .zero
         
         if target.buff == .counter {
             say("\(target.name) estava pronto para revidar e deu \(entityDamage) de dano em \(entity.name)", color: .blue)
         }
         
+        entity.subHp(entityDamage)
+        target.subHp(targetDamage)
+        
+        if technique?.attributes.contains(.drain) == true {
+            let newHp = heal(entityId: entityId, with: targetDamage/2)
+            entity.currentHp(newHp)
+            say("\(entity.name) drenou \(target.name)!", color: .yellow)
+        }
+        
         defeated(entity, target)
-        return (entityDamage, fullDamage)
+        return (entity, target)
     }
     
     fileprivate func getAtk(for entity: Entity, isExa: Bool = false) -> Int {

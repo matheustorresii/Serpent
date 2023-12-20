@@ -9,7 +9,6 @@ import Foundation
 import Sword
 
 enum Actions: String {
-    case id
     case test
     
     case ability
@@ -19,6 +18,7 @@ enum Actions: String {
     case attack
     case boss
     case bossSummon
+    case bossUlt
     case buff
     case check
     case damage
@@ -44,7 +44,6 @@ enum Actions: String {
     
     var execute: ((Message) -> Void) {
         switch self {
-        case .id:       return { $0.id() }
         case .test:       return { $0.test() }
             
         case .ability:    return { $0.ability() }
@@ -54,6 +53,7 @@ enum Actions: String {
         case .attack:     return { $0.attack(isExtension: false) }
         case .boss:       return { $0.boss() }
         case .bossSummon: return { $0.bossSummon() }
+        case .bossUlt:    return { $0.bossUlt() }
         case .buff:       return { $0.buff() }
         case .check:      return { $0.check() }
         case .damage:     return { $0.damage() }

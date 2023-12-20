@@ -10,12 +10,12 @@ import Sword
 
 extension Message {
     func npc() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let npcName = values.last else { return }
-        guard let newNpc = Npcs(rawValue: "\(npcName)") else {
+        guard let newNpc = Npcs(rawValue: npcName) else {
             return say("\(Utils.Strings.error): Este NPC não está registrado!", color: .red)
         }
-        say("\(NPC?.name ?? "null") foi substituído por \(newNpc.entity?.name ?? "null")!", color: .yellow)
+        say("\(NPC?.name ?? "") foi substituído por \(newNpc.entity?.name ?? "")!", color: .yellow)
         NPC = newNpc.entity
     }
 }

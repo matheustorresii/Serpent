@@ -10,19 +10,18 @@ import Sword
 
 extension Message {
     func item() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let targetId = values.first, let item = values.last, let itemIndex = Int(item) else { return }
-        guard let character = Character(rawValue: author?.id.description ?? "") else { return idError() }
-        doItem(entityId: character.entity.name,
-               targetId: "\(targetId)",
+        doItem(entityId: character().name,
+               targetId: targetId,
                itemIndex: itemIndex)
     }
     
     func removeItem() {
-        let values = content.split(separator: " ").dropFirst()
+        let values = messageValues()
         guard let entityId = values.first, let itemId = values.last, let itemIndex = Int(itemId) else { return }
         let index = itemIndex-1
-        var entity = getEntity(with: "\(entityId)")
+        var entity = getEntity(with: entityId)
         guard let _ = entity.items[exists: index] else {
             return say("\(Utils.Strings.error): Este player não possui esse item", color: .red)
         }
